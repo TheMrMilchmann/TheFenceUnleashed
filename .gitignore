@@ -5,6 +5,7 @@
 !/.idea/scopes
 /build
 /out
+/run
 
 /buildSrc/.gradle
 /buildSrc/build
