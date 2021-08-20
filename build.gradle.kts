@@ -22,6 +22,7 @@
 plugins {
     java
     id("net.minecraftforge.gradle") version "5.1.0"
+    id("org.spongepowered.mixin") version "0.7-SNAPSHOT"
 }
 
 group = "com.github.themrmilchmann.fency"
@@ -42,6 +43,9 @@ minecraft {
             property("forge.logging.console.level", "debug")
             property("forge.logging.markers", "REGISTRIES")
 
+            arg("-mixin.config=fency.mixins.json")
+            jvmArg("-Dmixin.env.disableRefMap=true")
+
             mods {
                 create("fency") {
                     source(sourceSets["main"])
@@ -51,6 +55,12 @@ minecraft {
     }
 }
 
+mixin {
+    add(sourceSets["main"], "fency.refmap.json")
+}
+
 dependencies {
     minecraft("net.minecraftforge:forge:1.16.5-36.2.2")
+
+    annotationProcessor("org.spongepowered:mixin:0.8.3:processor")
 }
