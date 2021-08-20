@@ -21,18 +21,23 @@
  */
 package com.github.themrmilchmann.fency.mixins;
 
+import java.lang.ref.WeakReference;
+import java.util.UUID;
+
 import javax.annotation.Nullable;
 
+import com.mojang.authlib.GameProfile;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FenceGateBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MobEntity;
-import net.minecraft.pathfinding.PathNodeType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
+import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import org.apache.commons.lang3.NotImplementedException;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
@@ -45,6 +50,12 @@ import static net.minecraft.block.FenceGateBlock.*;
 @Mixin(FenceGateBlock.class)
 public final class FenceGateBlockMixin {
 
+    private static final UUID PROFILE_UUID = UUID.randomUUID();
+    private static final GameProfile PROFILE = new GameProfile(PROFILE_UUID, "[Fency]");
+
+    @Nullable
+    private static WeakReference<FakePlayer> fakePlayerRef;
+
     @Accessor(value = "X_COLLISION_SHAPE")
     private static VoxelShape X_COLLISION_SHAPE() {
         throw new NotImplementedException("FenceGateBlock#X_COLLISION_SHAPE mixin failed to apply");
@@ -55,21 +66,19 @@ public final class FenceGateBlockMixin {
         throw new NotImplementedException("FenceGateBlock#Z_COLLISION_SHAPE mixin failed to apply");
     }
 
-    @Inject(at = @At(value = "HEAD"), method = "getAiPathNodeType", cancellable = true)
-    public void getAiPathNodeType(BlockState state, IBlockReader world, BlockPos pos, @Nullable MobEntity entity, CallbackInfoReturnable<PathNodeType> ci) {
-        if (entity != null && entity.canBeLeashed(null) && !entity.isLeashed()) { // TODO use fake player
-            ci.setReturnValue(PathNodeType.BLOCKED);
-        }
-    }
-
     @Inject(at = @At(value = "HEAD"), method = "getCollisionShape", cancellable = true)
     public void getCollisionShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext selectionContext, CallbackInfoReturnable<VoxelShape> ci) {
         Entity entity = selectionContext.getEntity();
 
         if (state.getValue(OPEN) && entity instanceof MobEntity) {
             MobEntity mob = (MobEntity) entity;
+            FakePlayer fakePlayer;
 
-            if (mob.canBeLeashed(null) && !mob.isLeashed()) { // TODO use fake player
+            if (fakePlayerRef == null || (fakePlayer = fakePlayerRef.get()) == null) {
+                fakePlayerRef = new WeakReference<>(fakePlayer = new FakePlayer(ServerLifecycleHooks.getCurrentServer().overworld(), PROFILE));
+            }
+
+            if (mob.canBeLeashed(fakePlayer) && !mob.isLeashed()) {
                 ci.setReturnValue(state.getValue(FACING).getAxis() == Direction.Axis.Z ? Z_COLLISION_SHAPE() : X_COLLISION_SHAPE());
             }
         }
