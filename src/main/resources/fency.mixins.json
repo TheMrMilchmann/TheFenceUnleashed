@@ -1,0 +1,10 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "com.github.themrmilchmann.fency.mixins",
+    "compatibilityLevel": "JAVA_8",
+    "refmap": "fency.refmap.json",
+    "mixins": [
+        "FenceGateBlockMixin"
+    ]
+}
