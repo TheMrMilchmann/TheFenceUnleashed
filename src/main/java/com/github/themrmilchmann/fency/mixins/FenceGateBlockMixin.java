@@ -31,6 +31,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.FenceGateBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.item.LeashKnotEntity;
+import net.minecraft.entity.monster.IMob;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -78,7 +80,7 @@ public final class FenceGateBlockMixin {
                 fakePlayerRef = new WeakReference<>(fakePlayer = new FakePlayer(ServerLifecycleHooks.getCurrentServer().overworld(), PROFILE));
             }
 
-            if (mob.canBeLeashed(fakePlayer) && !mob.isLeashed()) {
+            if (mob.canBeLeashed(fakePlayer) || (mob.getLeashHolder() instanceof LeashKnotEntity)) {
                 ci.setReturnValue(state.getValue(FACING).getAxis() == Direction.Axis.Z ? Z_COLLISION_SHAPE() : X_COLLISION_SHAPE());
             }
         }
