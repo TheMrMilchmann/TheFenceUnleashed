@@ -1,0 +1,33 @@
+name: CI
+on: push
+
+jobs:
+  jdk8:
+    name: OpenJDK 8 (Ubuntu)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: AdoptOpenJDK/install-jdk@v1
+        with:
+          version: '8'
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Gradle Build
+        run: |
+          ./gradlew --version --console=plain
+          ./gradlew build -Psnapshot --info -S --console=plain
+
+      - name: Cleanup Gradle Cache
+        run: |
+          rm -f ~/.gradle/caches/modules-2/modules-2.lock
+          rm -f ~/.gradle/caches/modules-2/gc.properties
