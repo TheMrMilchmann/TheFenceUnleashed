@@ -52,6 +52,21 @@ minecraft {
                 }
             }
         }
+        create("server") {
+            workingDirectory(file("run"))
+
+            property("forge.logging.console.level", "debug")
+            property("forge.logging.markers", "REGISTRIES")
+
+            arg("-mixin.config=fency.mixins.json")
+            jvmArg("-Dmixin.env.disableRefMap=true")
+
+            mods {
+                create("fency") {
+                    source(sourceSets["main"])
+                }
+            }
+        }
     }
 }
 

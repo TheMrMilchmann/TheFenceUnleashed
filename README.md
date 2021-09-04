@@ -56,6 +56,7 @@ Important Gradle tasks to remember are:
 - `clean`                   - clean build results
 - `build`                   - assemble and test the Java library
 - `runClient`               - runs the development client
+- `runServer`               - runs the development server
 
 Additionally `tasks` may be used to print a list of all available tasks.
 
