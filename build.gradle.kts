@@ -59,6 +59,16 @@ mixin {
     add(sourceSets["main"], "fency.refmap.json")
 }
 
+tasks {
+    jar {
+        manifest {
+            attributes(mapOf(
+                "MixinConfigs" to "fency.mixins.json"
+            ))
+        }
+    }
+}
+
 dependencies {
     minecraft("net.minecraftforge:forge:1.16.5-36.2.2")
 
