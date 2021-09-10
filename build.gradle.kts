@@ -19,6 +19,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+import com.github.themrmilchmann.fency.build.*
+import com.github.themrmilchmann.fency.build.BuildType
+
 plugins {
     java
     id("net.minecraftforge.gradle") version "5.1.0"
@@ -26,6 +29,11 @@ plugins {
 }
 
 group = "com.github.themrmilchmann.fency"
+val nextVersion = "1.16.5-1.0.0.0"
+version = when (deployment.type) {
+    BuildType.SNAPSHOT -> "$nextVersion-SNAPSHOT"
+    else -> nextVersion
+}
 
 java {
     toolchain {
