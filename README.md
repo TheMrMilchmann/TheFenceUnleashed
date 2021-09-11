@@ -7,7 +7,9 @@ _The Fence Unleashed_ is a small QoL mod that helps in exactly this scenario by 
 from passing through fence gates. Mobs that are leashed to a fence cannot pass either. The behavior of mobs that cannot
 be leashed remains unchanged. If a mob is mounted, the properties of the topmost mob will be considered.
 
-![Fency banner](docs/banner.png)
+<p align="center">
+  <img alt="Fency Banner" src="https://github.com/TheMrMilchmann/Fency/blob/master/docs/banner.png">
+</p>
 
 
 ## Frequently Asked Questions
