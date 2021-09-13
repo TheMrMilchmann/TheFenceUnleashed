@@ -19,4 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
+@NonNullApi
 package com.github.themrmilchmann.fency;
+
+import com.github.themrmilchmann.fency.util.NonNullApi;
