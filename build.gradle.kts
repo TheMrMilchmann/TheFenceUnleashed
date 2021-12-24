@@ -95,5 +95,5 @@ tasks {
 dependencies {
     minecraft("net.minecraftforge:forge:1.16.5-36.2.2")
 
-    annotationProcessor("org.spongepowered:mixin:0.8.3:processor")
+    annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
 }
