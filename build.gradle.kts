@@ -25,6 +25,12 @@ import com.github.themrmilchmann.fency.build.BuildType
 plugins {
     java
     id("net.minecraftforge.gradle") version "5.1.0"
+    /*
+     * TODO:
+     *  The build should really not depend on a snapshot of some library or Gradle plugin but - for some reason - there
+     *  was no MixinGradle release for an extremely long time. I might have to look into forking this to at least get a
+     *  somewhat reproducible build.
+     */
     id("org.spongepowered.mixin") version "0.7-SNAPSHOT"
 }
 
