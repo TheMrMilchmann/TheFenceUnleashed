@@ -1,13 +1,13 @@
 modLoader="javafml"
 loaderVersion="[36,)"
 license="MIT"
-issueTrackerURL="https://github.com/TheMrMilchmann/Fency/issues"
+issueTrackerURL="https://github.com/TheMrMilchmann/TheFenceUnleashed/issues"
 
 [[mods]]
 modId="fency"
 version="${file.jarVersion}"
 displayName="The Fence Unleashed"
-displayURL="https://github.com/TheMrMilchmann/Fency"
+displayURL="https://github.com/TheMrMilchmann/TheFenceUnleashed"
 authors="TheMrMilchmann, Drados"
 description='''
 Have you ever been annoyed by that one cow that just didn't want to stay in its pen and managed to get out just before you could close the fence gate?

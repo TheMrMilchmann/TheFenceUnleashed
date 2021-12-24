@@ -8,7 +8,7 @@ from passing through fence gates. Mobs that are leashed to a fence cannot pass e
 be leashed remains unchanged. If a mob is mounted, the properties of the topmost mob will be considered.
 
 <p align="center">
-  <img alt="Fency Banner" src="https://github.com/TheMrMilchmann/Fency/blob/master/docs/banner.png">
+  <img alt="Fency Banner" src="https://github.com/TheMrMilchmann/TheFenceUnleashed/blob/master/docs/banner.png">
 </p>
 
 
@@ -20,7 +20,7 @@ be leashed remains unchanged. If a mob is mounted, the properties of the topmost
 Excellent question! Did you ever come up with a pun about fence gates? No? Yeah,
 I didn't either. That's pretty much it... so I guess I'll add another random
 fact here: The initial name for this mod was "Fency" (and this name is still
-used in most places) but it had to be changed for technical reasons.
+used internally) but it had to be changed for technical reasons.
 
 > Is The Fence Unleashed compatible with fence gates added by other mods?
 
