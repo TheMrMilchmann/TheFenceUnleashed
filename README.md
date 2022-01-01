@@ -28,7 +28,7 @@ The Fence Unleashed modifies vanilla fence gate logic to be compatible with all
 sorts of fence gates. Thus, it is very likely, but not guaranteed that it will
 work with fence gates from other mods too.
 
-> Can I use The Fence Unleashed in my mod-pack?
+> Can I use The Fence Unleashed in my modpack?
 
 Yes, please respect the [license terms](./LICENSE).
 
