@@ -40,8 +40,8 @@ public final class FencyConfig {
 
     public static final ConfigValue<Behavior> defaultBehavior;
 
-    private static final ConfigValue<List<? extends String>> blacklist;
-    private static final ConfigValue<List<? extends String>> whitelist;
+    private static final ConfigValue<List<? extends String>> blocklist;
+    private static final ConfigValue<List<? extends String>> allowlist;
 
     static {
         ForgeConfigSpec.Builder bConfigSpec = new ForgeConfigSpec.Builder();
@@ -53,18 +53,18 @@ public final class FencyConfig {
                 Behavior.CHECK
             );
 
-        blacklist = bConfigSpec
+        blocklist = bConfigSpec
             .comment("Entities that are always blocked from passing through fence gates.")
             .defineList(
-                "blacklist",
+                "blocklist",
                 Collections::emptyList,
                 it -> it instanceof String && (ResourceLocation.isValidResourceLocation((String) it))
             );
 
-        whitelist = bConfigSpec
+        allowlist = bConfigSpec
             .comment("Entities that are always allowed to pass through fence gates.")
             .defineList(
-                "whitelist",
+                "allowlist",
                 Collections::emptyList,
                 it -> it instanceof String && (ResourceLocation.isValidResourceLocation((String) it))
             );
@@ -73,24 +73,24 @@ public final class FencyConfig {
     }
 
     @Nullable
-    private static Set<? extends ResourceLocation> _blacklist, _whitelist;
+    private static Set<? extends ResourceLocation> _blocklist, _allowlist;
 
-    public static Set<? extends ResourceLocation> getBlacklist() { return Objects.requireNonNull(_blacklist, "Requested blacklist before config was loaded"); }
-    public static Set<? extends ResourceLocation> getWhitelist() { return Objects.requireNonNull(_whitelist, "Requested whitelist before config was loaded"); }
+    public static Set<? extends ResourceLocation> getBlocklist() { return Objects.requireNonNull(_blocklist, "Requested blocklist before config was loaded"); }
+    public static Set<? extends ResourceLocation> getAllowlist() { return Objects.requireNonNull(_allowlist, "Requested allowlist before config was loaded"); }
 
     private static void processConfig() {
-        List<? extends String> blacklist = FencyConfig.blacklist.get();
-        List<? extends String> whitelist = FencyConfig.whitelist.get();
+        List<? extends String> blocklist = FencyConfig.blocklist.get();
+        List<? extends String> allowlist = FencyConfig.allowlist.get();
 
-        _blacklist = Collections.unmodifiableSet(blacklist.stream().map(ResourceLocation::new).collect(Collectors.toSet()));
-        _whitelist = Collections.unmodifiableSet(whitelist.stream().map(ResourceLocation::new).collect(Collectors.toSet()));
+        _blocklist = Collections.unmodifiableSet(blocklist.stream().map(ResourceLocation::new).collect(Collectors.toSet()));
+        _allowlist = Collections.unmodifiableSet(allowlist.stream().map(ResourceLocation::new).collect(Collectors.toSet()));
 
-        Set<? extends ResourceLocation> duplicates = _blacklist.stream()
-            .filter(it -> _whitelist.contains(it))
+        Set<? extends ResourceLocation> duplicates = _blocklist.stream()
+            .filter(it -> _allowlist.contains(it))
             .collect(Collectors.toSet());
 
         if (!duplicates.isEmpty()) {
-            StringBuilder sb = new StringBuilder("[The Fence Unleashed] Duplicate entries found in black- and whitelist:");
+            StringBuilder sb = new StringBuilder("[The Fence Unleashed] Duplicate entries found in black- and allowlist:");
             for (ResourceLocation duplicate : duplicates) sb.append("\n\t - ").append(duplicate);
             sb.append("\nPlease resolve these configuration issues before restarting.");
 

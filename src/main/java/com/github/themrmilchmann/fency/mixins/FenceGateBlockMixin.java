@@ -81,13 +81,13 @@ public final class FenceGateBlockMixin {
 
         ResourceLocation entityTypeID = Objects.requireNonNull(entity.getType().getRegistryName());
 
-        boolean isBlacklisted = FencyConfig.getBlacklist().contains(entityTypeID);
-        boolean isWhitelisted = FencyConfig.getWhitelist().contains(entityTypeID);
+        boolean isBlocked = FencyConfig.getBlocklist().contains(entityTypeID);
+        boolean isAllowed = FencyConfig.getAllowlist().contains(entityTypeID);
 
-        if (isBlacklisted || (!isWhitelisted && FencyConfig.defaultBehavior.get() == FencyConfig.Behavior.BLOCK)) {
+        if (isBlocked || (!isAllowed && FencyConfig.defaultBehavior.get() == FencyConfig.Behavior.BLOCK)) {
             ci.setReturnValue(state.getValue(FACING).getAxis() == Direction.Axis.Z ? Z_COLLISION_SHAPE() : X_COLLISION_SHAPE());
             return;
-        } else if (isWhitelisted || FencyConfig.defaultBehavior.get() == FencyConfig.Behavior.ALLOW) {
+        } else if (isAllowed || FencyConfig.defaultBehavior.get() == FencyConfig.Behavior.ALLOW) {
             ci.setReturnValue(VoxelShapes.empty());
             return;
         }
