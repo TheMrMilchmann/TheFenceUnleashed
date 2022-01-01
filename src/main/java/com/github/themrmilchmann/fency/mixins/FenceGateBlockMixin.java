@@ -23,11 +23,13 @@ package com.github.themrmilchmann.fency.mixins;
 
 import java.lang.ref.WeakReference;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.github.themrmilchmann.fency.config.FencyConfig;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.FenceGateBlock;
@@ -35,9 +37,11 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.item.LeashKnotEntity;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
@@ -50,6 +54,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import static net.minecraft.block.FenceGateBlock.*;
 
+@SuppressWarnings("unused")
 @Mixin(FenceGateBlock.class)
 public final class FenceGateBlockMixin {
 
@@ -73,6 +78,19 @@ public final class FenceGateBlockMixin {
     public void getCollisionShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext selectionContext, CallbackInfoReturnable<VoxelShape> ci) {
         Entity entity = selectionContext.getEntity();
         if (!state.getValue(OPEN) || entity == null) return;
+
+        ResourceLocation entityTypeID = Objects.requireNonNull(entity.getType().getRegistryName());
+
+        boolean isBlacklisted = FencyConfig.getBlacklist().contains(entityTypeID);
+        boolean isWhitelisted = FencyConfig.getWhitelist().contains(entityTypeID);
+
+        if (isBlacklisted || (!isWhitelisted && FencyConfig.defaultBehavior.get() == FencyConfig.Behavior.BLOCK)) {
+            ci.setReturnValue(state.getValue(FACING).getAxis() == Direction.Axis.Z ? Z_COLLISION_SHAPE() : X_COLLISION_SHAPE());
+            return;
+        } else if (isWhitelisted || FencyConfig.defaultBehavior.get() == FencyConfig.Behavior.ALLOW) {
+            ci.setReturnValue(VoxelShapes.empty());
+            return;
+        }
 
         Set<Entity> visitedEntities = new HashSet<>();
         Entity tmp;

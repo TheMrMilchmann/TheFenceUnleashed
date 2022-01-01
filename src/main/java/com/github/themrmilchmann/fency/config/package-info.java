@@ -19,26 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.themrmilchmann.fency;
+@NonNullApi
+package com.github.themrmilchmann.fency.config;
 
-import com.github.themrmilchmann.fency.config.FencyConfig;
-import net.minecraftforge.fml.ExtensionPoint;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.network.FMLNetworkConstants;
-import org.apache.commons.lang3.tuple.Pair;
-
-@Mod("fency")
-public final class Fency {
-
-    public Fency() {
-        ModLoadingContext ctx = ModLoadingContext.get();
-        ctx.registerExtensionPoint(
-            ExtensionPoint.DISPLAYTEST,
-            () -> Pair.of(() -> FMLNetworkConstants.IGNORESERVERONLY, (a, b) -> true)
-        );
-        ctx.registerConfig(ModConfig.Type.COMMON, FencyConfig.SPEC, "the-fence-unleashed.toml");
-    }
-
-}
+import com.github.themrmilchmann.fency.util.NonNullApi;
