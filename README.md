@@ -32,6 +32,11 @@ work with fence gates from other mods too.
 
 Yes, please respect the [license terms](./LICENSE).
 
+> Can I use this mod with existing saves?
+
+Yes, The Fence Unleashed does not affect savegames. It can be added or removed
+at any time.
+
 
 ## Building from source
 
