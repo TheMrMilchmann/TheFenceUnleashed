@@ -15,6 +15,29 @@ file.
 </p>
 
 
+## Versioning
+
+The Fence Unleashed follows a custom versioning scheme. A version number matches
+the pattern `WORLD.API.FEATURE-MCVERSION-PATCH`.
+
+
+## Supported versions
+
+| Minecraft Version | State              |
+|-------------------|--------------------|
+| 1.16.5            | Mainline           |
+
+
+### Support Cycle
+
+| State                  | Description                                                   |
+|------------------------|---------------------------------------------------------------|
+| **Mainline**           | The primary development branch                                |
+| **Active Development** | This version still receives all updates                       |
+| **Fixes Only**         | This version still receives fixes but no new features         |
+| **Unsupported**        | This version is unsupported and does not receive any updates  |
+
+
 ## Frequently Asked Questions
 (Just kidding, we just released this. No one has asked for or about this.)
 
