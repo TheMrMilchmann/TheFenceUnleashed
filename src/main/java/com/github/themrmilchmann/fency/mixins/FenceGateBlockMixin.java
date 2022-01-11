@@ -29,6 +29,7 @@ import java.util.UUID;
 
 import javax.annotation.Nullable;
 
+import com.github.themrmilchmann.fency.Fency;
 import com.github.themrmilchmann.fency.config.FencyConfig;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.block.BlockState;
@@ -81,8 +82,8 @@ public final class FenceGateBlockMixin {
 
         ResourceLocation entityTypeID = Objects.requireNonNull(entity.getType().getRegistryName());
 
-        boolean isBlocked = FencyConfig.getBlocklist().contains(entityTypeID);
-        boolean isAllowed = FencyConfig.getAllowlist().contains(entityTypeID);
+        boolean isBlocked = Fency.isBlocked(entityTypeID);
+        boolean isAllowed = Fency.isAllowed(entityTypeID);
 
         if (isBlocked || (!isAllowed && FencyConfig.defaultBehavior.get() == FencyConfig.Behavior.BLOCK)) {
             ci.setReturnValue(state.getValue(FACING).getAxis() == Direction.Axis.Z ? Z_COLLISION_SHAPE() : X_COLLISION_SHAPE());

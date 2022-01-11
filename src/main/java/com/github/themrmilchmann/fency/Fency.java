@@ -22,15 +22,30 @@
 package com.github.themrmilchmann.fency;
 
 import com.github.themrmilchmann.fency.config.FencyConfig;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.FMLNetworkConstants;
 import org.apache.commons.lang3.tuple.Pair;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-@Mod("fency")
+import java.util.HashSet;
+import java.util.Set;
+
+@Mod(Fency.MOD_ID)
 public final class Fency {
+
+    public static final String MOD_ID = "fency";
+
+    private static final Logger LOGGER = LogManager.getLogger(MOD_ID);
+
+    private static final Set<ResourceLocation> imcAllowlist = new HashSet<>();
+    private static final Set<ResourceLocation> imcBlocklist = new HashSet<>();
 
     public Fency() {
         ModLoadingContext ctx = ModLoadingContext.get();
@@ -39,6 +54,46 @@ public final class Fency {
             () -> Pair.of(() -> FMLNetworkConstants.IGNORESERVERONLY, (a, b) -> true)
         );
         ctx.registerConfig(ModConfig.Type.COMMON, FencyConfig.SPEC, "the-fence-unleashed.toml");
+
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onIMCProcessEvent);
+    }
+
+    public static boolean isAllowed(ResourceLocation rl) {
+        Set<? extends ResourceLocation> cfgAllowlist = FencyConfig.getAllowlist();
+        Set<? extends ResourceLocation> cfgBlocklist = FencyConfig.getBlocklist();
+
+        return cfgAllowlist.contains(rl) || (!cfgBlocklist.contains(rl) && imcAllowlist.contains(rl));
+    }
+
+    public static boolean isBlocked(ResourceLocation rl) {
+        Set<? extends ResourceLocation> cfgAllowlist = FencyConfig.getAllowlist();
+        Set<? extends ResourceLocation> cfgBlocklist = FencyConfig.getBlocklist();
+
+        return cfgBlocklist.contains(rl) || (!cfgAllowlist.contains(rl) && imcBlocklist.contains(rl));
+    }
+
+    private void onIMCProcessEvent(InterModProcessEvent event) {
+        event.getIMCStream().forEach(message -> {
+            String method = message.getMethod();
+
+            switch (method) {
+                case "addToAllowlist": {
+                    ResourceLocation rl = message.<ResourceLocation>getMessageSupplier().get();
+                    if (imcBlocklist.contains(rl)) throw new IllegalArgumentException("[The Fence Unleashed] Entry cannot be added to allowlist as it's already explicitly blocked: " + rl);
+
+                    imcAllowlist.add(rl);
+                } break;
+                case "addToBlocklist": {
+                    ResourceLocation rl = message.<ResourceLocation>getMessageSupplier().get();
+                    if (imcAllowlist.contains(rl)) throw new IllegalArgumentException("[The Fence Unleashed] Entry cannot be added to blocklist as it's already explicitly allowed: " + rl);
+
+                    imcBlocklist.add(rl);
+                } break;
+                default: {
+                    LOGGER.warn("Received IMC message for unknown method '" + message.getMethod() + "' from mod: " + message.getSenderModId());
+                }
+            }
+        });
     }
 
 }
