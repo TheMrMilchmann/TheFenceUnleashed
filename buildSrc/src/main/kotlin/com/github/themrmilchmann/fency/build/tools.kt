@@ -22,7 +22,6 @@
 package com.github.themrmilchmann.fency.build
 
 import org.gradle.api.*
-import org.gradle.api.publish.maven.*
 import org.gradle.kotlin.dsl.*
 
 private const val DEPLOYMENT_KEY = "com.github.themrmilchmann.fency.build.Deployment"
@@ -41,7 +40,7 @@ val Project.deployment: Deployment
                     BuildType.SNAPSHOT,
                     getProperty("curseForgeAPIKey")
                 )
-                else -> Deployment(BuildType.LOCAL, repositories.mavenLocal().url.toString())
+                else -> Deployment(BuildType.LOCAL, "")
             }).also { extra[DEPLOYMENT_KEY] = it }
 
 fun Project.getProperty(k: String): String =
