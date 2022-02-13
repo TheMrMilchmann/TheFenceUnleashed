@@ -21,8 +21,8 @@
  */
 import com.github.themrmilchmann.fency.build.*
 import com.github.themrmilchmann.fency.build.BuildType
-import com.github.themrmilchmann.gradle.publish.curseforge.*
-import com.github.themrmilchmann.gradle.publish.curseforge.tasks.*
+import io.github.themrmilchmann.gradle.publish.curseforge.*
+import io.github.themrmilchmann.gradle.publish.curseforge.tasks.*
 
 plugins {
     java
@@ -34,7 +34,7 @@ plugins {
      *  somewhat reproducible build.
      */
     id("org.spongepowered.mixin") version "0.7-SNAPSHOT"
-    id("com.github.themrmilchmann.curseforge-publish") version "0.1.0"
+    id("io.github.themrmilchmann.curseforge-publish") version "0.1.0"
 }
 
 group = "com.github.themrmilchmann.fency"
