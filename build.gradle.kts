@@ -125,6 +125,8 @@ publishing {
 }
 
 fun changelog(): Changelog {
+    if (deployment.type == BuildType.SNAPSHOT) return Changelog("", ChangelogType.TEXT)
+
     val mc = project.version.toString() // E.g. 1.0.0-1.16.5-0
         .substringAfter('-')            //            1.16.5-0
         .substringBefore('-')           //            1.16.5
