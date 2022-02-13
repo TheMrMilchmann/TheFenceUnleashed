@@ -21,6 +21,8 @@
  */
 import com.github.themrmilchmann.fency.build.*
 import com.github.themrmilchmann.fency.build.BuildType
+import com.github.themrmilchmann.gradle.publish.curseforge.*
+import com.github.themrmilchmann.gradle.publish.curseforge.tasks.*
 
 plugins {
     java
@@ -32,6 +34,7 @@ plugins {
      *  somewhat reproducible build.
      */
     id("org.spongepowered.mixin") version "0.7-SNAPSHOT"
+    id("com.github.themrmilchmann.curseforge-publish") version "0.1.0"
 }
 
 group = "com.github.themrmilchmann.fency"
@@ -96,6 +99,41 @@ tasks {
             ))
         }
     }
+
+    withType<PublishToCurseForgeRepository> {
+        onlyIf { deployment.type === BuildType.RELEASE }
+    }
+}
+
+publishing {
+    repositories {
+        curseForge {
+            apiKey.set(deployment.cfApiKey)
+        }
+    }
+    publications {
+        create<CurseForgePublication>("curseForge") {
+            projectID.set(521072) // https://www.curseforge.com/minecraft/mc-mods/the-fence-unleashed
+
+            artifact {
+                changelog = changelog()
+                displayName = "The Fence Unleashed ${project.version}"
+                releaseType = ReleaseType.RELEASE
+            }
+        }
+    }
+}
+
+fun changelog(): Changelog {
+    val mc = project.version.toString() // E.g. 1.0.0-1.16.5-0
+        .substringAfter('-')            //            1.16.5-0
+        .substringBefore('-')           //            1.16.5
+        .substringBeforeLast('.')       //            1.16
+
+    return Changelog(
+        content = File(rootDir, "docs/changelog/$mc/${project.version}.md").readText(),
+        type = ChangelogType.MARKDOWN
+    )
 }
 
 dependencies {
