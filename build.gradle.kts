@@ -36,7 +36,7 @@ plugins {
     id("org.spongepowered.mixin") version "0.7-SNAPSHOT"
     id("io.github.themrmilchmann.curseforge-publish") version "0.1.0"
 }
-buildscript.configurations.getByName("classpath").forEach { println(it.name) }
+
 group = "com.github.themrmilchmann.fency"
 val nextVersion = "1.0.0-1.17.1-0"
 version = when (deployment.type) {
