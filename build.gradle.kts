@@ -26,7 +26,7 @@ import io.github.themrmilchmann.gradle.publish.curseforge.tasks.*
 
 plugins {
     java
-    id("net.minecraftforge.gradle") version "5.1.0"
+    id("net.minecraftforge.gradle") version "5.1.31"
     /*
      * TODO:
      *  The build should really not depend on a snapshot of some library or Gradle plugin but - for some reason - there
@@ -36,9 +36,9 @@ plugins {
     id("org.spongepowered.mixin") version "0.7-SNAPSHOT"
     id("io.github.themrmilchmann.curseforge-publish") version "0.1.0"
 }
-
+buildscript.configurations.getByName("classpath").forEach { println(it.name) }
 group = "com.github.themrmilchmann.fency"
-val nextVersion = "1.0.0-1.16.5-0"
+val nextVersion = "1.0.0-1.17.1-0"
 version = when (deployment.type) {
     BuildType.SNAPSHOT -> "$nextVersion-SNAPSHOT"
     else -> nextVersion
@@ -46,12 +46,12 @@ version = when (deployment.type) {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(8))
+        languageVersion.set(JavaLanguageVersion.of(16))
     }
 }
 
 minecraft {
-    mappings("official", "1.16.5")
+    mappings("official", "1.17.1")
 
     runs {
         create("client") {
@@ -139,7 +139,7 @@ fun changelog(): Changelog {
 }
 
 dependencies {
-    minecraft("net.minecraftforge:forge:1.16.5-36.2.2")
+    minecraft("net.minecraftforge:forge:1.17.1-37.1.1")
 
     annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
 }

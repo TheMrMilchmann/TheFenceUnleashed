@@ -22,15 +22,14 @@
 package com.github.themrmilchmann.fency;
 
 import com.github.themrmilchmann.fency.config.FencyConfig;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.ExtensionPoint;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.fml.IExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.network.FMLNetworkConstants;
-import org.apache.commons.lang3.tuple.Pair;
+import net.minecraftforge.fmllegacy.network.FMLNetworkConstants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -50,8 +49,11 @@ public final class Fency {
     public Fency() {
         ModLoadingContext ctx = ModLoadingContext.get();
         ctx.registerExtensionPoint(
-            ExtensionPoint.DISPLAYTEST,
-            () -> Pair.of(() -> FMLNetworkConstants.IGNORESERVERONLY, (a, b) -> true)
+            IExtensionPoint.DisplayTest.class,
+            () -> new IExtensionPoint.DisplayTest(
+                () -> FMLNetworkConstants.IGNORESERVERONLY,
+                (a, b) -> true
+            )
         );
         ctx.registerConfig(ModConfig.Type.COMMON, FencyConfig.SPEC, "the-fence-unleashed.toml");
 
@@ -74,24 +76,24 @@ public final class Fency {
 
     private void onIMCProcessEvent(InterModProcessEvent event) {
         event.getIMCStream().forEach(message -> {
-            String method = message.getMethod();
+            String method = message.method();
 
             switch (method) {
-                case "addToAllowlist": {
-                    ResourceLocation rl = message.<ResourceLocation>getMessageSupplier().get();
-                    if (imcBlocklist.contains(rl)) throw new IllegalArgumentException("[The Fence Unleashed] Entry cannot be added to allowlist as it's already explicitly blocked: " + rl);
+                case "addToAllowlist" -> {
+                    ResourceLocation rl = (ResourceLocation) message.messageSupplier().get();
+                    if (imcBlocklist.contains(rl))
+                        throw new IllegalArgumentException("[The Fence Unleashed] Entry cannot be added to allowlist as it's already explicitly blocked: " + rl);
 
                     imcAllowlist.add(rl);
-                } break;
-                case "addToBlocklist": {
-                    ResourceLocation rl = message.<ResourceLocation>getMessageSupplier().get();
-                    if (imcAllowlist.contains(rl)) throw new IllegalArgumentException("[The Fence Unleashed] Entry cannot be added to blocklist as it's already explicitly allowed: " + rl);
+                }
+                case "addToBlocklist" -> {
+                    ResourceLocation rl = (ResourceLocation) message.messageSupplier().get();
+                    if (imcAllowlist.contains(rl))
+                        throw new IllegalArgumentException("[The Fence Unleashed] Entry cannot be added to blocklist as it's already explicitly allowed: " + rl);
 
                     imcBlocklist.add(rl);
-                } break;
-                default: {
-                    LOGGER.warn("Received IMC message for unknown method '" + message.getMethod() + "' from mod: " + message.getSenderModId());
                 }
+                default -> LOGGER.warn("Received IMC message for unknown method '" + message.method() + "' from mod: " + message.senderModId());
             }
         });
     }

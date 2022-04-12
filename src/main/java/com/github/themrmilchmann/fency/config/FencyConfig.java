@@ -24,12 +24,12 @@ package com.github.themrmilchmann.fency.config;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 
 import javax.annotation.Nullable;
 
@@ -82,8 +82,8 @@ public final class FencyConfig {
         List<? extends String> blocklist = FencyConfig.blocklist.get();
         List<? extends String> allowlist = FencyConfig.allowlist.get();
 
-        _blocklist = Collections.unmodifiableSet(blocklist.stream().map(ResourceLocation::new).collect(Collectors.toSet()));
-        _allowlist = Collections.unmodifiableSet(allowlist.stream().map(ResourceLocation::new).collect(Collectors.toSet()));
+        _blocklist = blocklist.stream().map(ResourceLocation::new).collect(Collectors.toUnmodifiableSet());
+        _allowlist = allowlist.stream().map(ResourceLocation::new).collect(Collectors.toUnmodifiableSet());
 
         Set<? extends ResourceLocation> duplicates = _blocklist.stream()
             .filter(it -> _allowlist.contains(it))
@@ -99,12 +99,12 @@ public final class FencyConfig {
     }
 
     @SubscribeEvent
-    public static void onConfigLoaded(ModConfig.Loading event) {
+    public static void onConfigLoaded(ModConfigEvent.Loading event) {
         processConfig();
     }
 
     @SubscribeEvent
-    public static void onConfigReloaded(ModConfig.Reloading event) {
+    public static void onConfigReloaded(ModConfigEvent.Reloading event) {
         processConfig();
     }
 

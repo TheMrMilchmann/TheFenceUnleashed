@@ -22,30 +22,28 @@
 package com.github.themrmilchmann.fency.mixins;
 
 import java.lang.ref.WeakReference;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 import javax.annotation.Nullable;
 
 import com.github.themrmilchmann.fency.Fency;
 import com.github.themrmilchmann.fency.config.FencyConfig;
 import com.mojang.authlib.GameProfile;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.FenceGateBlock;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.item.LeashKnotEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.decoration.LeashFenceKnotEntity;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.FenceGateBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.EntityCollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.fml.server.ServerLifecycleHooks;
+import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
 import org.apache.commons.lang3.NotImplementedException;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
@@ -53,7 +51,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import static net.minecraft.block.FenceGateBlock.*;
+import static net.minecraft.world.level.block.FenceGateBlock.*;
 
 @SuppressWarnings("unused")
 @Mixin(FenceGateBlock.class)
@@ -76,10 +74,13 @@ public final class FenceGateBlockMixin {
     }
 
     @Inject(at = @At(value = "HEAD"), method = "getCollisionShape", cancellable = true)
-    public void getCollisionShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext selectionContext, CallbackInfoReturnable<VoxelShape> ci) {
-        Entity entity = selectionContext.getEntity();
-        if (!state.getValue(OPEN) || entity == null) return;
+    public void getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext collisionContext, CallbackInfoReturnable<VoxelShape> ci) {
+        if (!state.getValue(OPEN) || !(collisionContext instanceof EntityCollisionContext entityCollisionContext)) return;
 
+        Optional<Entity> optEntity = entityCollisionContext.getEntity();
+        if (optEntity.isEmpty()) return;
+
+        Entity entity = optEntity.get();
         ResourceLocation entityTypeID = Objects.requireNonNull(entity.getType().getRegistryName());
 
         boolean isBlocked = Fency.isBlocked(entityTypeID);
@@ -89,7 +90,7 @@ public final class FenceGateBlockMixin {
             ci.setReturnValue(state.getValue(FACING).getAxis() == Direction.Axis.Z ? Z_COLLISION_SHAPE() : X_COLLISION_SHAPE());
             return;
         } else if (isAllowed || FencyConfig.defaultBehavior.get() == FencyConfig.Behavior.ALLOW) {
-            ci.setReturnValue(VoxelShapes.empty());
+            ci.setReturnValue(Shapes.empty());
             return;
         }
 
@@ -104,9 +105,9 @@ public final class FenceGateBlockMixin {
 
             visitedEntities.add(entity);
 
-            if (entity instanceof MobEntity) {
-                if ((tmp = ((MobEntity) entity).getLeashHolder()) != null) {
-                    if (!(tmp instanceof LeashKnotEntity)) {
+            if (entity instanceof Mob mob) {
+                if ((tmp = mob.getLeashHolder()) != null) {
+                    if (!(tmp instanceof LeashFenceKnotEntity)) {
                         entity = tmp;
                         continue;
                     }
@@ -127,7 +128,7 @@ public final class FenceGateBlockMixin {
             fakePlayerRef = new WeakReference<>(fakePlayer = new FakePlayer(ServerLifecycleHooks.getCurrentServer().overworld(), PROFILE));
         }
 
-        if (entity instanceof MobEntity && (((MobEntity) entity).canBeLeashed(fakePlayer) || ((MobEntity) entity).getLeashHolder() instanceof LeashKnotEntity)) {
+        if (entity instanceof Mob mob && (mob.canBeLeashed(fakePlayer) || mob.getLeashHolder() instanceof LeashFenceKnotEntity)) {
             ci.setReturnValue(state.getValue(FACING).getAxis() == Direction.Axis.Z ? Z_COLLISION_SHAPE() : X_COLLISION_SHAPE());
         }
     }
