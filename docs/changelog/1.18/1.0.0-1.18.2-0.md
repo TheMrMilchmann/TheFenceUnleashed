@@ -1,6 +1,6 @@
 ### 1.0.0-1.18.2-0
 
-_Not Released Yet_
+_Released 2022 Apr 19_
 
 #### Requirements
 - **MinecraftForge:** 1.18.2-40.1.0
