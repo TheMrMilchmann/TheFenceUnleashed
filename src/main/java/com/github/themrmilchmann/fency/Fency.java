@@ -29,7 +29,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.InterModProcessEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fmllegacy.network.FMLNetworkConstants;
+import net.minecraftforge.network.NetworkConstants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -51,7 +51,7 @@ public final class Fency {
         ctx.registerExtensionPoint(
             IExtensionPoint.DisplayTest.class,
             () -> new IExtensionPoint.DisplayTest(
-                () -> FMLNetworkConstants.IGNORESERVERONLY,
+                () -> NetworkConstants.IGNORESERVERONLY,
                 (a, b) -> true
             )
         );

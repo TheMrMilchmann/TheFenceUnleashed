@@ -38,7 +38,7 @@ plugins {
 }
 
 group = "com.github.themrmilchmann.fency"
-val nextVersion = "1.0.0-1.17.1-0"
+val nextVersion = "1.0.0-1.18.2-0"
 version = when (deployment.type) {
     BuildType.SNAPSHOT -> "$nextVersion-SNAPSHOT"
     else -> nextVersion
@@ -46,12 +46,12 @@ version = when (deployment.type) {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(16))
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
 
 minecraft {
-    mappings("official", "1.17.1")
+    mappings("official", "1.18.2")
 
     runs {
         create("client") {
@@ -139,7 +139,7 @@ fun changelog(): Changelog {
 }
 
 dependencies {
-    minecraft("net.minecraftforge:forge:1.17.1-37.1.1")
+    minecraft("net.minecraftforge:forge:1.18.2-40.1.0")
 
     annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
 }

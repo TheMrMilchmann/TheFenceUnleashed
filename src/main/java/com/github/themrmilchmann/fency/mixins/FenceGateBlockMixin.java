@@ -43,7 +43,7 @@ import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
+import net.minecraftforge.server.ServerLifecycleHooks;
 import org.apache.commons.lang3.NotImplementedException;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
@@ -77,10 +77,9 @@ public final class FenceGateBlockMixin {
     public void getCollisionShape(BlockState state, BlockGetter world, BlockPos pos, CollisionContext collisionContext, CallbackInfoReturnable<VoxelShape> ci) {
         if (!state.getValue(OPEN) || !(collisionContext instanceof EntityCollisionContext entityCollisionContext)) return;
 
-        Optional<Entity> optEntity = entityCollisionContext.getEntity();
-        if (optEntity.isEmpty()) return;
+        Entity entity = entityCollisionContext.getEntity();
+        if (entity == null) return;
 
-        Entity entity = optEntity.get();
         ResourceLocation entityTypeID = Objects.requireNonNull(entity.getType().getRegistryName());
 
         boolean isBlocked = Fency.isBlocked(entityTypeID);
