@@ -29,12 +29,15 @@ import javax.annotation.Nullable;
 import com.github.themrmilchmann.fency.Fency;
 import com.github.themrmilchmann.fency.config.FencyConfig;
 import com.mojang.authlib.GameProfile;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.decoration.LeashFenceKnotEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -42,7 +45,9 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.util.FakePlayer;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.server.ServerLifecycleHooks;
 import org.apache.commons.lang3.NotImplementedException;
 import org.spongepowered.asm.mixin.Mixin;
@@ -61,7 +66,7 @@ public final class FenceGateBlockMixin {
     private static final GameProfile PROFILE = new GameProfile(PROFILE_UUID, "[Fency]");
 
     @Nullable
-    private static WeakReference<FakePlayer> fakePlayerRef;
+    private static WeakReference<Player> playerRef;
 
     @Accessor(value = "X_COLLISION_SHAPE")
     private static VoxelShape X_COLLISION_SHAPE() {
@@ -121,13 +126,18 @@ public final class FenceGateBlockMixin {
             break;
         }
 
-        FakePlayer fakePlayer;
+        MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
+        Player player;
 
-        if (fakePlayerRef == null || (fakePlayer = fakePlayerRef.get()) == null) {
-            fakePlayerRef = new WeakReference<>(fakePlayer = new FakePlayer(ServerLifecycleHooks.getCurrentServer().overworld(), PROFILE));
+        if (server != null) {
+            if (playerRef == null || (player = playerRef.get()) == null) {
+                playerRef = new WeakReference<>(player = new FakePlayer(ServerLifecycleHooks.getCurrentServer().overworld(), PROFILE));
+            }
+        } else {
+            player = DistExecutor.safeCallWhenOn(Dist.CLIENT, () -> () -> Minecraft.getInstance().player);
         }
 
-        if (entity instanceof Mob mob && (mob.canBeLeashed(fakePlayer) || mob.getLeashHolder() instanceof LeashFenceKnotEntity)) {
+        if (entity instanceof Mob mob && (mob.canBeLeashed(player) || mob.getLeashHolder() instanceof LeashFenceKnotEntity)) {
             ci.setReturnValue(state.getValue(FACING).getAxis() == Direction.Axis.Z ? Z_COLLISION_SHAPE() : X_COLLISION_SHAPE());
         }
     }
