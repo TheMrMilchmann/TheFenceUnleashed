@@ -48,6 +48,7 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
@@ -134,12 +135,25 @@ public final class FenceGateBlockMixin {
                 playerRef = new WeakReference<>(player = new FakePlayer(ServerLifecycleHooks.getCurrentServer().overworld(), PROFILE));
             }
         } else {
-            player = DistExecutor.safeCallWhenOn(Dist.CLIENT, () -> () -> Minecraft.getInstance().player);
+            player = DistExecutor.safeCallWhenOn(Dist.CLIENT, () -> ClientPlayerRetriever::getPlayer);
         }
 
         if (entity instanceof MobEntity && (((MobEntity) entity).canBeLeashed(player) || ((MobEntity) entity).getLeashHolder() instanceof LeashKnotEntity)) {
             ci.setReturnValue(state.getValue(FACING).getAxis() == Direction.Axis.Z ? Z_COLLISION_SHAPE() : X_COLLISION_SHAPE());
         }
+    }
+
+    // Required to properly defer the client-only logic to prevent loading of client classes on dedicated servers.
+    private static final class ClientPlayerRetriever {
+
+        @OnlyIn(Dist.CLIENT)
+        private static PlayerEntity getPlayer() {
+            PlayerEntity player = Minecraft.getInstance().player;
+            assert (player != null);
+
+            return player;
+        }
+
     }
 
 }
