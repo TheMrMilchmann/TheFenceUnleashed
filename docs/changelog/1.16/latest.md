@@ -1,4 +1,4 @@
-### 1.0.0-1.16.5-1
+### 1.0.0-1.16.5-2
 
 _Released 2022 Apr 30_
 
@@ -7,4 +7,4 @@ _Released 2022 Apr 30_
 
 #### Fixes
 
-- Fixed a client crash.
+- Fixed a server crash.
