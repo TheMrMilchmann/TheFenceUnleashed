@@ -58,7 +58,7 @@ public final class FencyConfig {
             .defineList(
                 "blocklist",
                 Collections::emptyList,
-                it -> it instanceof String && (ResourceLocation.isValidResourceLocation((String) it))
+                it -> it instanceof String
             );
 
         allowlist = bConfigSpec
@@ -66,7 +66,7 @@ public final class FencyConfig {
             .defineList(
                 "allowlist",
                 Collections::emptyList,
-                it -> it instanceof String && (ResourceLocation.isValidResourceLocation((String) it))
+                it -> it instanceof String
             );
 
         SPEC = bConfigSpec.build();
