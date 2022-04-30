@@ -30,6 +30,7 @@ import com.github.themrmilchmann.fency.Fency;
 import com.github.themrmilchmann.fency.config.FencyConfig;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
@@ -46,6 +47,7 @@ import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fmllegacy.server.ServerLifecycleHooks;
 import net.minecraftforge.fml.DistExecutor;
@@ -135,7 +137,7 @@ public final class FenceGateBlockMixin {
                 playerRef = new WeakReference<>(player = new FakePlayer(ServerLifecycleHooks.getCurrentServer().overworld(), PROFILE));
             }
         } else {
-            player = DistExecutor.safeCallWhenOn(Dist.CLIENT, () -> () -> Minecraft.getInstance().player);
+            player = DistExecutor.safeCallWhenOn(Dist.CLIENT, () -> ClientPlayerRetriever::getPlayer);
         }
 
         if (entity instanceof Mob mob && (mob.canBeLeashed(player) || mob.getLeashHolder() instanceof LeashFenceKnotEntity)) {
@@ -143,4 +145,16 @@ public final class FenceGateBlockMixin {
         }
     }
 
+    // Required to properly defer the client-only logic to prevent loading of client classes on dedicated servers.
+    private static final class ClientPlayerRetriever {
+
+        @OnlyIn(Dist.CLIENT)
+        private static Player getPlayer() {
+            LocalPlayer player = Minecraft.getInstance().player;
+            assert (player != null);
+
+            return player;
+        }
+
+    }
 }
