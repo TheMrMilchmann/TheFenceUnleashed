@@ -36,6 +36,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.decoration.LeashFenceKnotEntity;
 import net.minecraft.world.entity.player.Player;
@@ -87,7 +88,7 @@ public final class FenceGateBlockMixin {
         Entity entity = entityCollisionContext.getEntity();
         if (entity == null) return;
 
-        ResourceLocation entityTypeID = Objects.requireNonNull(entity.getType().getRegistryName());
+        ResourceLocation entityTypeID = EntityType.getKey(entity.getType());
 
         boolean isBlocked = Fency.isBlocked(entityTypeID);
         boolean isAllowed = Fency.isAllowed(entityTypeID);
