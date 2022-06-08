@@ -25,6 +25,7 @@ the pattern `WORLD.API.FEATURE-MCVERSION-PATCH`.
 
 | Minecraft Version | State              |
 |-------------------|--------------------|
+| 1.19              | Active Development |
 | 1.18.2            | Mainline           |
 | 1.17.1            | Active Development |
 | 1.16.5            | Active Development |
