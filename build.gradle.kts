@@ -38,7 +38,7 @@ plugins {
 }
 
 group = "com.github.themrmilchmann.fency"
-val nextVersion = "1.0.0-1.18.2-2"
+val nextVersion = "1.0.0-1.19-0"
 version = when (deployment.type) {
     BuildType.SNAPSHOT -> "$nextVersion-SNAPSHOT"
     else -> nextVersion
@@ -51,7 +51,7 @@ java {
 }
 
 minecraft {
-    mappings("official", "1.18.2")
+    mappings("official", "1.19")
 
     runs {
         create("client") {
@@ -130,7 +130,12 @@ fun changelog(): Changelog {
     val mc = project.version.toString() // E.g. 1.0.0-1.16.5-0
         .substringAfter('-')            //            1.16.5-0
         .substringBefore('-')           //            1.16.5
-        .substringBeforeLast('.')       //            1.16
+        .let {
+            if (it.count { it == '.' } == 1)
+                it
+            else
+                it.substringBeforeLast('.')
+        }                               //            1.16
 
     return Changelog(
         content = File(rootDir, "docs/changelog/$mc/${project.version}.md").readText(),
@@ -139,7 +144,7 @@ fun changelog(): Changelog {
 }
 
 dependencies {
-    minecraft("net.minecraftforge:forge:1.18.2-40.1.0")
+    minecraft("net.minecraftforge:forge:1.19-41.0.1")
 
     annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
 }
