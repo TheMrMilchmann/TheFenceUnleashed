@@ -1,0 +1,30 @@
+name: Issue
+description: Report an issue
+
+body:
+  - type: textarea
+    attributes:
+      label: Description
+      description: Describe what issue you are facing and what you expect to happen.
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: Mod version
+      description: The version of The Fence Unleashed
+    validations:
+      required: true
+
+  - type: input
+    attributes:
+      label: Forge version
+      description: The version of MinecraftForge
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell
