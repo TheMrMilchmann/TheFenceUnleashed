@@ -26,7 +26,7 @@ import io.github.themrmilchmann.gradle.publish.curseforge.tasks.*
 
 plugins {
     java
-    id("net.minecraftforge.gradle") version "5.1.38"
+    id("net.minecraftforge.gradle") version "5.1.52"
     /*
      * TODO:
      *  The build should really not depend on a snapshot of some library or Gradle plugin but - for some reason - there
@@ -144,7 +144,7 @@ fun changelog(): Changelog {
 }
 
 dependencies {
-    minecraft("net.minecraftforge:forge:1.19-41.0.1")
+    minecraft("net.minecraftforge:forge:1.19-41.1.0")
 
     annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
 }
