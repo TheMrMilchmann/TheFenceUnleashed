@@ -81,7 +81,7 @@ provides a configuration file in which its behavior can be adjusted.
 
 ### Setup
 
-This project uses [Gradle's toolchain support](https://docs.gradle.org/7.4.2/userguide/toolchains.html)
+This project uses [Gradle's toolchain support](https://docs.gradle.org/7.5.1/userguide/toolchains.html)
 to detect and select the JDKs required to run the build. Please refer to the
 build scripts to find out which toolchains are requested.
 
