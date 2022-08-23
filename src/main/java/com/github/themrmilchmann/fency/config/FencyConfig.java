@@ -92,7 +92,7 @@ public final class FencyConfig {
             .collect(Collectors.toSet());
 
         if (!duplicates.isEmpty()) {
-            StringBuilder sb = new StringBuilder("[The Fence Unleashed] Duplicate entries found in black- and allowlist:");
+            StringBuilder sb = new StringBuilder("[The Fence Unleashed] Duplicate entries found in block- and allowlist:");
             for (ResourceLocation duplicate : duplicates) sb.append("\n\t - ").append(duplicate);
             sb.append("\nPlease resolve these configuration issues before restarting.");
 
