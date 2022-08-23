@@ -18,7 +18,7 @@ file.
 ## Versioning
 
 The Fence Unleashed follows a custom versioning scheme. A version number matches
-the pattern `WORLD.API.FEATURE-MCVERSION-PATCH`.
+the pattern `WORLD.API.FEATURE-MCVERSION-FORGE.PATCH`.
 
 
 ## Supported versions
