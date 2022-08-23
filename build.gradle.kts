@@ -51,7 +51,7 @@ java {
 }
 
 minecraft {
-    mappings("official", "1.19")
+    mappings("official", "1.19.2")
 
     runs {
         create("client") {
@@ -127,8 +127,8 @@ publishing {
 fun changelog(): Changelog {
     if (deployment.type == BuildType.SNAPSHOT) return Changelog("", ChangelogType.TEXT)
 
-    val mc = project.version.toString() // E.g. 1.0.0-1.16.5-0
-        .substringAfter('-')            //            1.16.5-0
+    val mc = project.version.toString() // E.g. 1.0.0-1.16.5-1.0
+        .substringAfter('-')            //            1.16.5-1.0
         .substringBefore('-')           //            1.16.5
         .let {
             if (it.count { it == '.' } == 1)
@@ -144,7 +144,7 @@ fun changelog(): Changelog {
 }
 
 dependencies {
-    minecraft("net.minecraftforge:forge:1.19-41.1.0")
+    minecraft("net.minecraftforge:forge:1.19.2-43.1.1")
 
     annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
 }
