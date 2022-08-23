@@ -47,7 +47,17 @@ public final class FencyConfig {
         ForgeConfigSpec.Builder bConfigSpec = new ForgeConfigSpec.Builder();
 
         defaultBehavior = bConfigSpec
-            .comment("The default behavior for entities trying to pass through fence gates.")
+            .comment(
+                """
+                The default behavior for entities trying to pass through fence gates.
+                
+                Possible values:
+                    ALLOW - Entities may pass through fence gates by default. Exceptions may be added to the blocklist.
+                    BLOCK - Entities are blocked from passing through fence gates by default. Exceptions may be added to the allowlist.
+                    CHECK - An algorithm is used to determine if an entity should be able to pass through fence gates on a best-effort basis.
+                            Exceptions can be added to the allow- or blocklist to respectively allow entities to or block them from passing.
+                """
+            )
             .defineEnum(
                 "defaultBehavior",
                 Behavior.CHECK
