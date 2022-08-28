@@ -23,12 +23,17 @@ the pattern `WORLD.API.FEATURE-MCVERSION-FORGE.PATCH`.
 
 ## Supported versions
 
-| Minecraft Version | State              |
-|-------------------|--------------------|
-| 1.19.2            | Mainline           |
-| 1.18.2            | Active Development |
-| 1.17.1            | Active Development |
-| 1.16.5            | Active Development |
+| Minecraft Version                                                | State              |
+|------------------------------------------------------------------|--------------------|
+| 1.19                                                             | Mainline           |
+| [1.18](https://github.com/TheMrMilchmann/TheFenceUnleashed-1.18) | Active Development |
+| [1.17](https://github.com/TheMrMilchmann/TheFenceUnleashed-1.17) | Active Development |
+| [1.16](https://github.com/TheMrMilchmann/TheFenceUnleashed-1.17) | Active Development |
+
+**This is the mainline repository** for the development of _The Fence Unleashed_
+which usually targets the most recent Minecraft version. The development for
+other versions of Minecraft happens in the repositories linked in the table
+above.
 
 
 ### Support Cycle
