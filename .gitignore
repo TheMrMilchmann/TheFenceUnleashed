@@ -1,9 +1,9 @@
 /.gradle
 !/.idea
 /.idea/*
-!/.idea/icon.png
 !/.idea/copyright
 !/.idea/scopes
+!/.idea/icon.png
 /build
 /out
 /run
