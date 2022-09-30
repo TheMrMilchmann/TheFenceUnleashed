@@ -104,6 +104,10 @@ tasks {
         }
     }
 
+    withType<Jar>().configureEach {
+        archiveBaseName.set("TheFenceUnleashed")
+    }
+
     withType<JavaExec>().configureEach {
         javaLauncher.set(project.javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(17)) })
     }
