@@ -1,5 +1,9 @@
 # The Fence Unleashed
 
+<p align="center">
+  <img alt="Fency Logo" src="./src/main/resources/logo.png" />
+</p>
+
 **Have you ever been annoyed by that one cow that just didn't want to stay in
 its pen and managed to get out just before you could close the fence gate?**
 
@@ -11,7 +15,7 @@ mob will be considered. This behavior can be adjusted in the mod's configuration
 file.
 
 <p align="center">
-  <img alt="Fency Banner" src="https://github.com/TheMrMilchmann/TheFenceUnleashed/blob/master/docs/banner.png">
+  <img alt="Fency Banner" src="https://github.com/TheMrMilchmann/TheFenceUnleashed/blob/master/docs/banner.png" width="800"/>
 </p>
 
 
