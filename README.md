@@ -15,7 +15,7 @@ mob will be considered. This behavior can be adjusted in the mod's configuration
 file.
 
 <p align="center">
-  <img alt="Fency Banner" src="https://github.com/TheMrMilchmann/TheFenceUnleashed/blob/master/docs/banner.png" width="800"/>
+  <img alt="Fency Banner" src="./docs/banner.png" width="800"/>
 </p>
 
 
