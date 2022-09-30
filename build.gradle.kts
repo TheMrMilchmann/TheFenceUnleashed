@@ -38,7 +38,7 @@ plugins {
 }
 
 group = "com.github.themrmilchmann.fency"
-val nextVersion = "1.0.1-1.19.2-1.0"
+val nextVersion = "1.0.2-1.19.2-1.0"
 version = when (deployment.type) {
     BuildType.SNAPSHOT -> "$nextVersion-SNAPSHOT"
     else -> nextVersion
