@@ -1,6 +1,7 @@
 /.gradle
 !/.idea
 /.idea/*
+!/.idea/icon.png
 !/.idea/copyright
 !/.idea/scopes
 /build
