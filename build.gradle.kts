@@ -112,7 +112,7 @@ tasks {
         javaLauncher.set(project.javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(17)) })
     }
 
-    withType<PublishToCurseForgeRepository> {
+    withType<PublishToCurseForgeRepository>().configureEach {
         onlyIf { deployment.type === BuildType.RELEASE }
     }
 }
