@@ -21,6 +21,7 @@
  */
 package com.github.themrmilchmann.fency;
 
+import com.github.themrmilchmann.fency.advancements.critereon.FencyCriteriaTriggers;
 import com.github.themrmilchmann.fency.config.FencyConfig;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fml.IExtensionPoint;
@@ -57,6 +58,7 @@ public final class Fency {
         );
         ctx.registerConfig(ModConfig.Type.COMMON, FencyConfig.SPEC, "the-fence-unleashed.toml");
 
+        FencyCriteriaTriggers.init();
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onIMCProcessEvent);
     }
 

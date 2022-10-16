@@ -27,6 +27,7 @@ import java.util.*;
 import javax.annotation.Nullable;
 
 import com.github.themrmilchmann.fency.Fency;
+import com.github.themrmilchmann.fency.advancements.critereon.FencyCriteriaTriggers;
 import com.github.themrmilchmann.fency.config.FencyConfig;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.Minecraft;
@@ -35,6 +36,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -87,6 +89,11 @@ public final class FenceGateBlockMixin {
 
         Entity entity = entityCollisionContext.getEntity();
         if (entity == null) return;
+
+        if (entity instanceof ServerPlayer player) {
+            assert (FencyCriteriaTriggers.ENTER_FENCE_GATE != null);
+            FencyCriteriaTriggers.ENTER_FENCE_GATE.trigger(player);
+        }
 
         ResourceLocation entityTypeID = EntityType.getKey(entity.getType());
 
