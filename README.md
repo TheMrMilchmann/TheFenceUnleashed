@@ -1,18 +1,22 @@
 # The Fence Unleashed
 
 <p align="center">
-  <img alt="Fency Logo" src="./src/main/resources/logo.png" />
+  <img alt="The Fence Unleashed" src="./src/main/resources/logo.png" />
 </p>
 
 **Have you ever been annoyed by that one cow that just didn't want to stay in
 its pen and managed to get out just before you could close the fence gate?**
 
 _The Fence Unleashed_ is a small QoL mod that helps in exactly this scenario by
-preventing mobs that are not leashed from passing through fence gates. Mobs that
-are leashed to a fence cannot pass either. The behavior of mobs that cannot be
-leashed remains unchanged. If a mob is mounted, the properties of the topmost
-mob will be considered. This behavior can be adjusted in the mod's configuration
-file.
+preventing mobs that are not leashed from passing through fence gates. The mod
+uses an algorithmic approach to determine if an entity may pass through a fence
+gate and changes the behavior accordingly.
+
+The Fence Unleashed's generic implementation makes the mod compatible with many
+custom fence gates and mobs. However, the behavior for some mobs from other mods
+may be inferred incorrectly. For this case, the mod provides a configuration
+file (`the-fence-unleashed.toml` in the `config` folder) which can be used to
+tweak the mod's algorithm as needed.
 
 <p align="center">
   <img alt="Fency Banner" src="./docs/banner.png" width="800"/>
@@ -21,8 +25,22 @@ file.
 
 ## Versioning
 
-The Fence Unleashed follows a custom versioning scheme. A version number matches
-the pattern `WORLD.API.FEATURE-MCVERSION-FORGE.PATCH`.
+The Fence Unleashed follows a custom versioning scheme that follows the spirit
+of the [SemVer 2.0.0](https://semver.org/spec/v2.0.0.html) specification. 
+
+Given a version number `WORLD.API.FEATURE-MC-LOADER.PATCH`, increment the:
+
+1. `WORLD` version when you make save-game incompatible changes,
+2. `API` version when you make incompatible API changes,
+3. `FEATURE` version when you update functionality in a backwards compatible
+   manner
+4. `LOADER` version when you update to a backward incompatible version of your
+   mod loader (e.g. Forge)
+5. `PATCH` version when you make backwards compatible bug fixes
+
+The `MC` version should always be the version string of the targeted version of
+Minecraft. If multiple Minecraft versions are supported by a single mod version,
+typically the oldest supported version string should be chosen.
 
 
 ## Supported versions
