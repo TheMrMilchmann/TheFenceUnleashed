@@ -34,7 +34,7 @@ plugins {
      *  somewhat reproducible build.
      */
     id("org.spongepowered.mixin") version "0.7-SNAPSHOT"
-    id("io.github.themrmilchmann.curseforge-publish") version "0.1.0"
+    id("io.github.themrmilchmann.curseforge-publish") version "0.2.0"
 }
 
 group = "com.github.themrmilchmann.fency"
