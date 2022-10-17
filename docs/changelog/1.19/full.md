@@ -1,3 +1,30 @@
+### 1.0.2-1.19.2-1.0
+
+_Released 2022 Oct 17_
+
+#### Requirements
+- **MinecraftForge:** 1.19.2-43.1.1
+
+#### Improvements
+
+- Added an advancement to inform players about the mod. [[GH-4](https://github.com/TheMrMilchmann/TheFenceUnleashed/issues/4)]
+    - The advancement is granted the first time a player walks through a fence
+      gate.
+    - The advancement grants two leads upon unlock to make it easier to get
+      started with the mod.
+- Changed the artifact base name to "TheFenceUnleashed" (from "Fency") to avoid
+  potential confusion.
+
+#### Fixes
+
+- Fixed a bug that caused the mod's resources to be displayed as incompatible
+  with the current Minecraft version.
+- Fixed a bug that caused carriage-return characters to be visible in the mod's
+  description in some places.
+
+
+---
+
 ### 1.0.1-1.19.2-1.0
 
 _Released 2022 Aug 23_
