@@ -1,0 +1,25 @@
+{
+    "type": "minecraft:advancement_reward",
+    "pools": [
+        {
+            "bonus_rolls": 0,
+            "entries": [
+                {
+                    "name": "minecraft:lead",
+                    "functions": [
+                        {
+                            "add": false,
+                            "count": {
+                                "type": "minecraft:constant",
+                                "value": 2
+                            },
+                            "function": "minecraft:set_count"
+                        }
+                    ],
+                    "type": "minecraft:item"
+                }
+            ],
+            "rolls": 1
+        }
+    ]
+}

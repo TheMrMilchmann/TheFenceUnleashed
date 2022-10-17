@@ -20,5 +20,8 @@
     },
     "requirements": [
         [ "entered_fence_gate" ]
-    ]
+    ],
+    "rewards": {
+        "loot": [ "fency:intro" ]
+    }
 }
