@@ -13,5 +13,7 @@ authors="TheMrMilchmann, Drados"
 description='''
 Have you ever been annoyed by that one cow that just didn't want to stay in its pen and managed to get out just before you could close the fence gate?
 
-The Fence Unleashed is small QoL mod that helps in exactly this scenario by preventing mobs that are not leashed from passing through fence gates. Mobs that are leashed to a fence cannot pass either. The behavior of mobs that cannot be leashed remains unchanged. If a mob is mounted, the properties of the topmost mob will be considered.
+'The Fence Unleashed' is a small QoL mod that helps in exactly this scenario by preventing mobs that are not leashed from passing through fence gates. The mod uses an algorithmic approach to determine if an entity may pass through a fence gate and changes the behavior accordingly.
+
+The Fence Unleashed's generic implementation makes the mod compatible with many custom fence gates and mobs. However, the behavior for some mobs from other mods may be inferred incorrectly. For this case, the mod provides a configuration file (`the-fence-unleashed.toml` in the `config` folder) which can be used to tweak the mod's algorithm as needed.
 '''
