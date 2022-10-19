@@ -60,12 +60,12 @@ above.
 
 ### Support Cycle
 
-| State                  | Description                                                   |
-|------------------------|---------------------------------------------------------------|
-| **Mainline**           | The primary development branch                                |
-| **Active Development** | This version still receives all updates                       |
-| **Fixes Only**         | This version still receives fixes but no new features         |
-| **Unsupported**        | This version is unsupported and does not receive any updates  |
+| State                  | Description                                                  |
+|------------------------|--------------------------------------------------------------|
+| **Mainline**           | The primary development branch                               |
+| **Active Development** | This version still receives all updates                      |
+| **Maintenance Mode**   | This version still receives fixes but no new features        |
+| **Unsupported**        | This version is unsupported and does not receive any updates |
 
 
 ## Frequently Asked Questions
