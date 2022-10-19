@@ -76,7 +76,8 @@ public final class FencyConfig {
             .defineList(
                 "allowlist",
                 () -> List.of(
-                    "minecolonies:citizen"
+                    "minecolonies:citizen",
+                    "minecolonies:visitor"
                 ),
                 it -> it instanceof String && (ResourceLocation.isValidResourceLocation((String) it))
             );
