@@ -1,3 +1,20 @@
+### 1.0.2-1.19.2-1.1
+
+_Released 2022 Oct 22_
+
+#### Requirements
+- **MinecraftForge:** 1.19.2-43.1.1
+
+#### Fixes
+
+- Added MineColonies' visitors (`minecolonies:visitor`) to the default allowlist.
+    - This will only take effect for new installations. If you wish to whitelist
+      MineColonies' citizens to an existing installation, you will still have to
+      add the exception manually.
+
+
+---
+
 ### 1.0.2-1.19.2-1.0
 
 _Released 2022 Oct 17_
