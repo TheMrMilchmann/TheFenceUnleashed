@@ -1,6 +1,8 @@
 {
     "pack": {
-        "description": "'The Fence Unleashed' resources",
-        "pack_format": 10
+        "pack_format": 12,
+        "description": "'The Fence Unleashed' resource pack",
+        "forge:resource_pack_format": 12,
+        "forge:data_pack_format": 10
     }
 }
