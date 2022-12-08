@@ -51,7 +51,7 @@ java {
 }
 
 minecraft {
-    mappings("official", "1.19.2")
+    mappings("official", "1.19.3")
 
     runs {
         create("client") {
@@ -158,7 +158,7 @@ fun changelog(): Changelog {
 }
 
 dependencies {
-    minecraft("net.minecraftforge:forge:1.19.2-43.1.1")
+    minecraft("net.minecraftforge:forge:1.19.3-44.0.0")
 
     annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
 }
