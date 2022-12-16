@@ -50,7 +50,7 @@ typically the oldest supported version string should be chosen.
 | 1.19                                                             | Mainline           |
 | [1.18](https://github.com/TheMrMilchmann/TheFenceUnleashed-1.18) | Active Development |
 | [1.17](https://github.com/TheMrMilchmann/TheFenceUnleashed-1.17) | Unsupported        |
-| [1.16](https://github.com/TheMrMilchmann/TheFenceUnleashed-1.16) | Maintenance Mode   |
+| [1.16](https://github.com/TheMrMilchmann/TheFenceUnleashed-1.16) | Unsupported        |
 
 **This is the mainline repository** for the development of _The Fence Unleashed_
 which usually targets the most recent Minecraft version. The development for
