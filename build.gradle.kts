@@ -37,7 +37,7 @@ plugins {
 }
 
 minecraft {
-    mappings("official", "1.19.3")
+    mappings(provider { "official" }, libs.versions.minecraft)
 
     runs {
         create("client") {
