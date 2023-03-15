@@ -24,7 +24,6 @@ import io.github.themrmilchmann.build.BuildType
 import io.github.themrmilchmann.gradle.publish.curseforge.*
 
 plugins {
-    java
     id("net.minecraftforge.gradle") version "5.1.61"
     /*
      * TODO:
@@ -33,13 +32,8 @@ plugins {
      *  somewhat reproducible build.
      */
     id("org.spongepowered.mixin") version "0.7-SNAPSHOT"
+    id("io.github.themrmilchmann.java-conventions")
     id("io.github.themrmilchmann.curseforge-publish-conventions")
-}
-
-java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(19))
-    }
 }
 
 minecraft {
@@ -84,10 +78,6 @@ mixin {
 }
 
 tasks {
-    compileJava {
-        options.release.set(17)
-    }
-
     jar {
         manifest {
             attributes(mapOf(
@@ -98,12 +88,6 @@ tasks {
 
     withType<Jar>().configureEach {
         archiveBaseName.set("TheFenceUnleashed")
-    }
-
-    withType<JavaExec>().configureEach {
-        doFirst { // Workaround for https://github.com/MinecraftForge/ForgeGradle/pull/889
-            javaLauncher.set(project.javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(17)) })
-        }
     }
 }
 
