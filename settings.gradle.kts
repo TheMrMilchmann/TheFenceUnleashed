@@ -28,10 +28,10 @@ pluginManagement {
         maven(url = "https://repo.spongepowered.org/repository/maven-public/")
         mavenCentral()
     }
+
     resolutionStrategy {
         eachPlugin {
             when (requested.id.id) {
-                "net.minecraftforge.gradle" -> useModule("net.minecraftforge.gradle:ForgeGradle:${requested.version}")
                 "org.spongepowered.mixin" -> useModule("org.spongepowered:mixingradle:${requested.version}")
             }
         }
