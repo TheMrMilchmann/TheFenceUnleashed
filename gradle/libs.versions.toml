@@ -1,6 +1,6 @@
 [versions]
 curseforge-publish = "0.4.0"
-forgegradle = "5.1.61"
+forgegradle = "5.1.68"
 minecraft = "1.19.3"
 minecraftforge = "1.19.3-44.0.0"
 mixin = "0.8.5"
