@@ -1,5 +1,5 @@
 [versions]
-curseforge-publish = "0.3.0"
+curseforge-publish = "0.4.0"
 minecraft = "1.19.3"
 
 [libraries]
