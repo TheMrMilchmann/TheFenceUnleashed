@@ -93,7 +93,7 @@ tasks {
 
 publishing {
     publications {
-        create<CurseForgePublication>("curseForge") {
+        register<CurseForgePublication>("curseForge") {
             projectID.set(521072) // https://www.curseforge.com/minecraft/mc-mods/the-fence-unleashed
 
             artifact {
