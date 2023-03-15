@@ -85,10 +85,6 @@ tasks {
             ))
         }
     }
-
-    withType<Jar>().configureEach {
-        archiveBaseName.set("TheFenceUnleashed")
-    }
 }
 
 publishing {
