@@ -1,7 +1,27 @@
 [versions]
 curseforge-publish = "0.4.0"
+forgegradle = "5.1.61"
 minecraft = "1.19.3"
+#
+# TODO:
+#  The build should really not depend on a snapshot of some library or Gradle plugin but - for some reason - there
+#  was no MixinGradle release for an extremely long time. I might have to look into forking this to at least get a
+#  somewhat reproducible build.
+#
+mixingradle = "0.7-SNAPSHOT"
+
 
 [libraries]
-# androidx.compose.compiler:compiler
+# io.github.themrmilchmann.gradle.publish.curseforge:gradle-curseforge-publish - CurseForge Gradle Publish Plugin
+# https://github.com/TheMrMilchmann/gradle-curseforge-publish
 gradle-curseforge-publish = { module = "io.github.themrmilchmann.gradle.publish.curseforge:gradle-curseforge-publish", version.ref = "curseforge-publish" }
+
+
+[plugins]
+# net.minecraftforge.gradle - ForgeGradle
+# https://github.com/MinecraftForge/ForgeGradle
+forge = { id = "net.minecraftforge.gradle", version.ref = "forgegradle" }
+
+# org.spongepowered.mixin - MixinGradle
+# https://github.com/SpongePowered/MixinGradle
+mixin = { id = "org.spongepowered.mixin", version.ref = "mixingradle" }

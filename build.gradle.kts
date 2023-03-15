@@ -23,15 +23,10 @@ import io.github.themrmilchmann.build.*
 import io.github.themrmilchmann.build.BuildType
 import io.github.themrmilchmann.gradle.publish.curseforge.*
 
+@Suppress("DSL_SCOPE_VIOLATION") // See https://github.com/gradle/gradle/issues/22797
 plugins {
-    id("net.minecraftforge.gradle") version "5.1.61"
-    /*
-     * TODO:
-     *  The build should really not depend on a snapshot of some library or Gradle plugin but - for some reason - there
-     *  was no MixinGradle release for an extremely long time. I might have to look into forking this to at least get a
-     *  somewhat reproducible build.
-     */
-    id("org.spongepowered.mixin") version "0.7-SNAPSHOT"
+    alias(libs.plugins.forge)
+    alias(libs.plugins.mixin)
     id("io.github.themrmilchmann.java-conventions")
     id("io.github.themrmilchmann.curseforge-publish-conventions")
 }
