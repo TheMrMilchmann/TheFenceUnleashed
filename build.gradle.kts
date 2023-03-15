@@ -116,7 +116,9 @@ fun changelog(): Changelog {
 }
 
 dependencies {
-    minecraft("net.minecraftforge:forge:1.19.3-44.0.0")
+    minecraft(libs.minecraftforge)
 
-    annotationProcessor("org.spongepowered:mixin:0.8.5:processor")
+    annotationProcessor(libs.mixin) {
+        artifact { classifier = "processor" }
+    }
 }

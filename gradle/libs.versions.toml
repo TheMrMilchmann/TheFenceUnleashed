@@ -2,6 +2,8 @@
 curseforge-publish = "0.4.0"
 forgegradle = "5.1.61"
 minecraft = "1.19.3"
+minecraftforge = "1.19.3-44.0.0"
+mixin = "0.8.5"
 #
 # TODO:
 #  The build should really not depend on a snapshot of some library or Gradle plugin but - for some reason - there
@@ -15,6 +17,14 @@ mixingradle = "0.7-SNAPSHOT"
 # io.github.themrmilchmann.gradle.publish.curseforge:gradle-curseforge-publish - CurseForge Gradle Publish Plugin
 # https://github.com/TheMrMilchmann/gradle-curseforge-publish
 gradle-curseforge-publish = { module = "io.github.themrmilchmann.gradle.publish.curseforge:gradle-curseforge-publish", version.ref = "curseforge-publish" }
+
+# net.minecraftforge:forge - MinecraftForge
+# https://github.com/MinecraftForge/MinecraftForge
+minecraftforge = { module = "net.minecraftforge:forge", version.ref = "minecraftforge" }
+
+# org.spongepowered:mixin - Mixin
+# https://github.com/SpongePowered/Mixin
+mixin = { module = "org.spongepowered:mixin", version.ref = "mixin" }
 
 
 [plugins]
