@@ -25,7 +25,7 @@ import io.github.themrmilchmann.gradle.publish.curseforge.*
 
 plugins {
     java
-    id("net.minecraftforge.gradle") version "5.1.58"
+    id("net.minecraftforge.gradle") version "5.1.61"
     /*
      * TODO:
      *  The build should really not depend on a snapshot of some library or Gradle plugin but - for some reason - there
