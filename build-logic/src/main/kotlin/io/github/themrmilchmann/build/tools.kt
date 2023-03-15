@@ -19,23 +19,32 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-pluginManagement {
-    includeBuild("build-logic")
+package io.github.themrmilchmann.build
 
-    repositories {
-        gradlePluginPortal()
-        maven(url = "https://maven.minecraftforge.net")
-        maven(url = "https://repo.spongepowered.org/repository/maven-public/")
-        mavenCentral()
-    }
-    resolutionStrategy {
-        eachPlugin {
-            when (requested.id.id) {
-                "net.minecraftforge.gradle" -> useModule("net.minecraftforge.gradle:ForgeGradle:${requested.version}")
-                "org.spongepowered.mixin" -> useModule("org.spongepowered:mixingradle:${requested.version}")
-            }
-        }
-    }
-}
+import org.gradle.api.*
+import org.gradle.kotlin.dsl.*
 
-rootProject.name = "TheFenceUnleashed"
+private const val DEPLOYMENT_KEY = "com.github.themrmilchmann.fency.build.Deployment"
+
+val Project.deployment: Deployment
+    get() =
+        if (extra.has(DEPLOYMENT_KEY)) {
+            extra[DEPLOYMENT_KEY] as Deployment
+        } else
+            (when {
+                hasProperty("release") -> Deployment(
+                    BuildType.RELEASE,
+                    getProperty("curseForgeAPIKey")
+                )
+                hasProperty("snapshot") -> Deployment(
+                    BuildType.SNAPSHOT,
+                    getProperty("curseForgeAPIKey")
+                )
+                else -> Deployment(BuildType.LOCAL, "")
+            }).also { extra[DEPLOYMENT_KEY] = it }
+
+fun Project.getProperty(k: String): String =
+    if (extra.has(k))
+        extra[k] as String
+    else
+        System.getenv(k) ?: ""

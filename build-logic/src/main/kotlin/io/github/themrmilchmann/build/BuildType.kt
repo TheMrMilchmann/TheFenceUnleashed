@@ -19,32 +19,10 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.themrmilchmann.fency.build
+package io.github.themrmilchmann.build
 
-import org.gradle.api.*
-import org.gradle.kotlin.dsl.*
-
-private const val DEPLOYMENT_KEY = "com.github.themrmilchmann.fency.build.Deployment"
-
-val Project.deployment: Deployment
-    get() =
-        if (extra.has(DEPLOYMENT_KEY)) {
-            extra[DEPLOYMENT_KEY] as Deployment
-        } else
-            (when {
-                hasProperty("release") -> Deployment(
-                    BuildType.RELEASE,
-                    getProperty("curseForgeAPIKey")
-                )
-                hasProperty("snapshot") -> Deployment(
-                    BuildType.SNAPSHOT,
-                    getProperty("curseForgeAPIKey")
-                )
-                else -> Deployment(BuildType.LOCAL, "")
-            }).also { extra[DEPLOYMENT_KEY] = it }
-
-fun Project.getProperty(k: String): String =
-    if (extra.has(k))
-        extra[k] as String
-    else
-        System.getenv(k) ?: ""
+enum class BuildType {
+    LOCAL,
+    SNAPSHOT,
+    RELEASE
+}

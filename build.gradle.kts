@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021-2022 Leon Linhart
+ * Copyright (c) 2021-2023 Leon Linhart
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,10 +19,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import com.github.themrmilchmann.fency.build.*
-import com.github.themrmilchmann.fency.build.BuildType
+import io.github.themrmilchmann.build.*
+import io.github.themrmilchmann.build.BuildType
 import io.github.themrmilchmann.gradle.publish.curseforge.*
-import io.github.themrmilchmann.gradle.publish.curseforge.tasks.*
 
 plugins {
     java
@@ -34,14 +33,7 @@ plugins {
      *  somewhat reproducible build.
      */
     id("org.spongepowered.mixin") version "0.7-SNAPSHOT"
-    id("io.github.themrmilchmann.curseforge-publish") version "0.3.0"
-}
-
-group = "com.github.themrmilchmann.fency"
-val nextVersion = "1.0.2-1.19.4-0.0"
-version = when (deployment.type) {
-    BuildType.SNAPSHOT -> "$nextVersion-SNAPSHOT"
-    else -> nextVersion
+    id("io.github.themrmilchmann.curseforge-publish-conventions")
 }
 
 java {
@@ -113,18 +105,9 @@ tasks {
             javaLauncher.set(project.javaToolchains.launcherFor { languageVersion.set(JavaLanguageVersion.of(17)) })
         }
     }
-
-    withType<PublishToCurseForgeRepository>().configureEach {
-        onlyIf { deployment.type === BuildType.RELEASE }
-    }
 }
 
 publishing {
-    repositories {
-        curseForge {
-            apiKey.set(deployment.cfApiKey)
-        }
-    }
     publications {
         create<CurseForgePublication>("curseForge") {
             projectID.set(521072) // https://www.curseforge.com/minecraft/mc-mods/the-fence-unleashed

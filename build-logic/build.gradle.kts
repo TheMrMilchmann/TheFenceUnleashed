@@ -19,23 +19,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-pluginManagement {
-    includeBuild("build-logic")
-
-    repositories {
-        gradlePluginPortal()
-        maven(url = "https://maven.minecraftforge.net")
-        maven(url = "https://repo.spongepowered.org/repository/maven-public/")
-        mavenCentral()
-    }
-    resolutionStrategy {
-        eachPlugin {
-            when (requested.id.id) {
-                "net.minecraftforge.gradle" -> useModule("net.minecraftforge.gradle:ForgeGradle:${requested.version}")
-                "org.spongepowered.mixin" -> useModule("org.spongepowered:mixingradle:${requested.version}")
-            }
-        }
-    }
+plugins {
+    `kotlin-dsl`
 }
 
-rootProject.name = "TheFenceUnleashed"
+repositories {
+    mavenCentral()
+    gradlePluginPortal()
+}
+
+dependencies {
+    implementation(libs.gradle.curseforge.publish)
+}

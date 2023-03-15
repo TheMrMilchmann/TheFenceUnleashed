@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package com.github.themrmilchmann.fency.build
+package io.github.themrmilchmann.build
 
 data class Deployment internal constructor(
     val type: BuildType,

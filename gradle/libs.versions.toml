@@ -1,0 +1,7 @@
+[versions]
+curseforge-publish = "0.3.0"
+
+
+[libraries]
+# androidx.compose.compiler:compiler
+gradle-curseforge-publish = { module = "io.github.themrmilchmann.gradle.publish.curseforge:gradle-curseforge-publish", version.ref = "curseforge-publish" }

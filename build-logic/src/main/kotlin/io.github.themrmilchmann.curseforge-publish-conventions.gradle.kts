@@ -19,23 +19,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-pluginManagement {
-    includeBuild("build-logic")
+import io.github.themrmilchmann.build.*
+import io.github.themrmilchmann.build.BuildType
+import io.github.themrmilchmann.gradle.publish.curseforge.*
+import io.github.themrmilchmann.gradle.publish.curseforge.tasks.*
 
+plugins {
+    id("io.github.themrmilchmann.curseforge-publish")
+    id("io.github.themrmilchmann.base-conventions")
+}
+
+publishing {
     repositories {
-        gradlePluginPortal()
-        maven(url = "https://maven.minecraftforge.net")
-        maven(url = "https://repo.spongepowered.org/repository/maven-public/")
-        mavenCentral()
-    }
-    resolutionStrategy {
-        eachPlugin {
-            when (requested.id.id) {
-                "net.minecraftforge.gradle" -> useModule("net.minecraftforge.gradle:ForgeGradle:${requested.version}")
-                "org.spongepowered.mixin" -> useModule("org.spongepowered:mixingradle:${requested.version}")
-            }
+        curseForge {
+            apiKey.set(deployment.cfApiKey)
         }
     }
 }
 
-rootProject.name = "TheFenceUnleashed"
+tasks.withType<PublishToCurseForgeRepository>().configureEach {
+    onlyIf { deployment.type === BuildType.RELEASE }
+}
