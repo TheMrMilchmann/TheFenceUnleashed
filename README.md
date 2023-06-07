@@ -45,17 +45,18 @@ typically the oldest supported version string should be chosen.
 
 ## Supported versions
 
-| Minecraft Version                                                | State              |
-|------------------------------------------------------------------|--------------------|
-| 1.19                                                             | Mainline           |
-| [1.18](https://github.com/TheMrMilchmann/TheFenceUnleashed-1.18) | Active Development |
-| [1.17](https://github.com/TheMrMilchmann/TheFenceUnleashed-1.17) | Unsupported        |
-| [1.16](https://github.com/TheMrMilchmann/TheFenceUnleashed-1.16) | Unsupported        |
+| Minecraft Version                                                     | State              |
+|-----------------------------------------------------------------------|--------------------|
+| 1.20                                                                  | Mainline           |
+| [1.19](https://github.com/TheMrMilchmann/TheFenceUnleashed/tree/1.19) | Active Development |
+| [1.18](https://github.com/TheMrMilchmann/TheFenceUnleashed-1.18)      | Active Development |
+| [1.17](https://github.com/TheMrMilchmann/TheFenceUnleashed-1.17)      | Unsupported        |
+| [1.16](https://github.com/TheMrMilchmann/TheFenceUnleashed-1.16)      | Unsupported        |
 
-**This is the mainline repository** for the development of _The Fence Unleashed_
+**This is the mainline branch** for the development of _The Fence Unleashed_
 which usually targets the most recent Minecraft version. The development for
-other versions of Minecraft happens in the repositories linked in the table
-above.
+other versions of Minecraft happens in the repositories and branches linked in
+the table above.
 
 
 ### Support Cycle
