@@ -24,7 +24,7 @@ import io.github.themrmilchmann.build.BuildType
 
 group = "com.github.themrmilchmann.fency"
 
-val nextVersion = "1.0.2-1.19.4-0.0"
+val nextVersion = "1.0.2-1.20-0.0"
 version = when (deployment.type) {
     BuildType.SNAPSHOT -> "$nextVersion-SNAPSHOT"
     else -> nextVersion
