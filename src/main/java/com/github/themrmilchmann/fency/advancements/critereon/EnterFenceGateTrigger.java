@@ -23,10 +23,7 @@ package com.github.themrmilchmann.fency.advancements.critereon;
 
 import com.github.themrmilchmann.fency.Fency;
 import com.google.gson.JsonObject;
-import net.minecraft.advancements.critereon.AbstractCriterionTriggerInstance;
-import net.minecraft.advancements.critereon.DeserializationContext;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
+import net.minecraft.advancements.critereon.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 
@@ -35,7 +32,7 @@ public final class EnterFenceGateTrigger extends SimpleCriterionTrigger<EnterFen
     static final ResourceLocation ID = new ResourceLocation(Fency.MOD_ID, "enter_fence_gate");
 
     @Override
-    protected TriggerInstance createInstance(JsonObject jsonObject, EntityPredicate.Composite predicate, DeserializationContext deserializationContext) {
+    protected TriggerInstance createInstance(JsonObject jsonObject, ContextAwarePredicate predicate, DeserializationContext deserializationContext) {
         return new TriggerInstance(predicate);
     }
 
@@ -50,7 +47,7 @@ public final class EnterFenceGateTrigger extends SimpleCriterionTrigger<EnterFen
 
     public static class TriggerInstance extends AbstractCriterionTriggerInstance {
 
-        public TriggerInstance(EntityPredicate.Composite predicate) {
+        public TriggerInstance(ContextAwarePredicate predicate) {
             super(EnterFenceGateTrigger.ID, predicate);
         }
 
