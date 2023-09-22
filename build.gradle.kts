@@ -95,18 +95,13 @@ publishing {
 }
 
 fun changelog(): Changelog {
-    val mc = project.version.toString() // E.g. 1.0.0-1.16.5-1.0
-        .substringAfter('-')            //            1.16.5-1.0
-        .substringBefore('-')           //            1.16.5
-        .let {
-            if (it.count { it == '.' } == 1)
-                it
-            else
-                it.substringBeforeLast('.')
-        }                               //            1.16
+    val modVersionSegment = version.toString().substringBefore('-')
+    val mcVersionSegment = version.toString().substring(startIndex = modVersionSegment.length + 1).substringBefore('-')
+    val mcVersionGroup = if (mcVersionSegment.count { it == '.' } == 1) mcVersionSegment else mcVersionSegment.substringBeforeLast('.')
+    val loaderVersionSegment = version.toString().substring(startIndex = modVersionSegment.length + mcVersionSegment.length + 2)
 
     return Changelog(
-        content = File(rootDir, "docs/changelog/$mc/${project.version}.md").readText(),
+        content = File(rootDir, "docs/changelog/$mcVersionGroup/${modVersionSegment}-${mcVersionSegment}-${loaderVersionSegment}.md").readText(),
         type = ChangelogType.MARKDOWN
     )
 }
