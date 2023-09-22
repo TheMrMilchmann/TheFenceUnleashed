@@ -19,13 +19,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import io.github.themrmilchmann.build.*
-import io.github.themrmilchmann.build.BuildType
-
-group = "com.github.themrmilchmann.fency"
-
-val nextVersion = "1.0.2-1.20.2-0.0"
-version = when (deployment.type) {
-    BuildType.SNAPSHOT -> "$nextVersion-SNAPSHOT"
-    else -> nextVersion
+repositories {
+    mavenCentral()
 }

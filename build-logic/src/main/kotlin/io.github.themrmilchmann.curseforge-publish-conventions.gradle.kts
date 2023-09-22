@@ -19,24 +19,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import io.github.themrmilchmann.build.*
-import io.github.themrmilchmann.build.BuildType
 import io.github.themrmilchmann.gradle.publish.curseforge.*
-import io.github.themrmilchmann.gradle.publish.curseforge.tasks.*
 
 plugins {
-    id("io.github.themrmilchmann.curseforge-publish")
     id("io.github.themrmilchmann.base-conventions")
+    id("io.github.themrmilchmann.curseforge-publish")
 }
 
 publishing {
     repositories {
+        val curseforgeApiKey: String? by project
+
         curseForge {
-            apiKey.set(deployment.cfApiKey)
+            apiKey.set(curseforgeApiKey)
         }
     }
-}
-
-tasks.withType<PublishToCurseForgeRepository>().configureEach {
-    onlyIf { deployment.type === BuildType.RELEASE }
 }

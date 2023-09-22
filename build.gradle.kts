@@ -19,8 +19,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-import io.github.themrmilchmann.build.*
-import io.github.themrmilchmann.build.BuildType
 import io.github.themrmilchmann.gradle.publish.curseforge.*
 
 @Suppress("DSL_SCOPE_VIOLATION") // See https://github.com/gradle/gradle/issues/22797
@@ -97,8 +95,6 @@ publishing {
 }
 
 fun changelog(): Changelog {
-    if (deployment.type == BuildType.SNAPSHOT) return Changelog("", ChangelogType.TEXT)
-
     val mc = project.version.toString() // E.g. 1.0.0-1.16.5-1.0
         .substringAfter('-')            //            1.16.5-1.0
         .substringBefore('-')           //            1.16.5
