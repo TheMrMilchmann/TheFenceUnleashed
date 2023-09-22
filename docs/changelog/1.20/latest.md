@@ -1,10 +1,10 @@
-### 1.0.2-1.20.1-0.0
+### 1.0.2-1.20.2-0.0
 
-_Released 2023 Jun 17_
+_Released 2023 Sep 22_
 
 #### Requirements
-- **MinecraftForge:** 1.20.1-47.0.3
+- **MinecraftForge:** 1.20.2-48.0.1
 
 #### Overview
 
-- Updated to Minecraft 1.20.1
+- Updated to Minecraft 1.20.2
