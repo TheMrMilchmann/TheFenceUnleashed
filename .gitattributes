@@ -1,1 +1,2 @@
-/src/main/resources/META-INF/mods.toml text eol=lf
+/src/main/resources/META-INF/mods.toml  text eol=lf
+gradlew                                 text eol=lf
