@@ -36,6 +36,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ClientInformation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -53,7 +54,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.server.ServerLifecycleHooks;
 import org.apache.commons.lang3.NotImplementedException;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
@@ -136,12 +136,13 @@ public final class FenceGateBlockMixin {
             break;
         }
 
-        MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
+        @SuppressWarnings("resource")
+        MinecraftServer server = entity.level().getServer();
         Player player;
 
         if (server != null) {
             if (playerRef == null || (player = playerRef.get()) == null) {
-                playerRef = new WeakReference<>(player = new FakePlayer(ServerLifecycleHooks.getCurrentServer().overworld(), PROFILE));
+                playerRef = new WeakReference<>(player = new FakePlayer(server.overworld(), PROFILE, ClientInformation.createDefault()) {});
             }
         } else {
             player = DistExecutor.safeCallWhenOn(Dist.CLIENT, () -> ClientPlayerRetriever::getPlayer);

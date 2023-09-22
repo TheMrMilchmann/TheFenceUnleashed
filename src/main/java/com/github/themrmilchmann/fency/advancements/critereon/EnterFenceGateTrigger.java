@@ -21,34 +21,28 @@
  */
 package com.github.themrmilchmann.fency.advancements.critereon;
 
-import com.github.themrmilchmann.fency.Fency;
 import com.google.gson.JsonObject;
 import net.minecraft.advancements.critereon.*;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+
+import java.util.Optional;
 
 public final class EnterFenceGateTrigger extends SimpleCriterionTrigger<EnterFenceGateTrigger.TriggerInstance> {
 
-    static final ResourceLocation ID = new ResourceLocation(Fency.MOD_ID, "enter_fence_gate");
-
     @Override
-    protected TriggerInstance createInstance(JsonObject jsonObject, ContextAwarePredicate predicate, DeserializationContext deserializationContext) {
+    protected TriggerInstance createInstance(JsonObject jsonObject, Optional<ContextAwarePredicate> predicate, DeserializationContext deserializationContext) {
         return new TriggerInstance(predicate);
-    }
-
-    @Override
-    public ResourceLocation getId() {
-        return ID;
     }
 
     public void trigger(ServerPlayer player) {
         this.trigger(player, triggerInstance -> true);
     }
 
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     public static class TriggerInstance extends AbstractCriterionTriggerInstance {
 
-        public TriggerInstance(ContextAwarePredicate predicate) {
-            super(EnterFenceGateTrigger.ID, predicate);
+        public TriggerInstance(Optional<ContextAwarePredicate> predicate) {
+            super(predicate);
         }
 
     }

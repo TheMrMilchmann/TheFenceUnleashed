@@ -22,8 +22,11 @@
 package com.github.themrmilchmann.fency.advancements.critereon;
 
 import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.CriterionTrigger;
 
 import javax.annotation.Nullable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public final class FencyCriteriaTriggers {
 
@@ -31,7 +34,18 @@ public final class FencyCriteriaTriggers {
     public static EnterFenceGateTrigger ENTER_FENCE_GATE;
 
     public static void init() {
-        CriteriaTriggers.register(ENTER_FENCE_GATE = new EnterFenceGateTrigger());
+        try {
+            Method registerMethod = CriteriaTriggers.class.getDeclaredMethod("register", String.class, CriterionTrigger.class);
+            registerMethod.setAccessible(true);
+
+            try {
+                registerMethod.invoke(null, "fency:enter_fence_gate", ENTER_FENCE_GATE = new EnterFenceGateTrigger());
+            } finally {
+                registerMethod.setAccessible(false);
+            }
+        } catch (InvocationTargetException | IllegalAccessException | NoSuchMethodException e) {
+            throw new IllegalStateException("Failed to register custom advancement trigger.", e);
+        }
     }
 
 }
