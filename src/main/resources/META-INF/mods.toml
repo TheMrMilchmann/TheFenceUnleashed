@@ -1,16 +1,19 @@
-modLoader="javafml"
-loaderVersion="[48,)"
-license="Fency"
-issueTrackerURL="https://github.com/TheMrMilchmann/TheFenceUnleashed/issues"
-logoFile="logo.png"
+modLoader = "javafml"
+loaderVersion = "[1,)"
+license = "Fency"
+issueTrackerURL = "https://github.com/TheMrMilchmann/TheFenceUnleashed/issues"
+logoFile = "logo.png"
+
+[[mixins]]
+config = "fency.mixins.json"
 
 [[mods]]
-modId="fency"
-version="${file.jarVersion}"
-displayName="The Fence Unleashed"
-displayURL="https://github.com/TheMrMilchmann/TheFenceUnleashed"
-authors="TheMrMilchmann, Drados"
-description='''
+modId = "fency"
+version = "${fency_version}"
+displayName = "The Fence Unleashed"
+displayURL = "https://github.com/TheMrMilchmann/TheFenceUnleashed"
+authors = "TheMrMilchmann, Drados"
+description = '''
 Have you ever been annoyed by that one cow that just didn't want to stay in its pen and managed to get out just before you could close the fence gate?
 
 'The Fence Unleashed' is a small QoL mod that helps in exactly this scenario by preventing mobs that are not leashed from passing through fence gates. The mod uses an algorithmic approach to determine if an entity may pass through a fence gate and changes the behavior accordingly.

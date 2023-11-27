@@ -46,66 +46,28 @@
 import io.github.themrmilchmann.gradle.publish.curseforge.*
 
 plugins {
-    alias(libs.plugins.forge)
-    alias(libs.plugins.mixin)
+    alias(libs.plugins.neogradle)
     id("io.github.themrmilchmann.java-conventions")
     id("io.github.themrmilchmann.curseforge-publish-conventions")
 }
 
 minecraft {
-    mappings(provider { "official" }, libs.versions.minecraft)
-
     runs {
-        create("client") {
-            workingDirectory(file("run"))
+        configureEach {
+            systemProperty("forge.logging.console.level", "debug")
+            systemProperty("forge.logging.markers", "REGISTRIES")
 
-            property("forge.logging.console.level", "debug")
-            property("forge.logging.markers", "REGISTRIES")
-
-            arg("-mixin.config=fency.mixins.json")
-            jvmArg("-Dmixin.env.disableRefMap=true")
-
-            mods {
-                create("fency") {
-                    source(sourceSets["main"])
-                }
-            }
+            modSources.add(sourceSets.main)
         }
-        create("server") {
-            workingDirectory(file("run"))
 
-            property("forge.logging.console.level", "debug")
-            property("forge.logging.markers", "REGISTRIES")
-
-            arg("-mixin.config=fency.mixins.json")
-            jvmArg("-Dmixin.env.disableRefMap=true")
-
-            mods {
-                create("fency") {
-                    source(sourceSets["main"])
-                }
-            }
-        }
-    }
-}
-
-mixin {
-    add(sourceSets["main"], "fency.refmap.json")
-}
-
-tasks {
-    jar {
-        manifest {
-            attributes(mapOf(
-                "MixinConfigs" to "fency.mixins.json"
-            ))
-        }
+        register("client")
+        register("server")
     }
 }
 
 curseforge {
     publications {
-        named("minecraftForge") {
+        named("neoForge") {
             projectId = "521072" // https://www.curseforge.com/minecraft/mc-mods/the-fence-unleashed
 
             artifacts.named("main") {
@@ -126,10 +88,16 @@ curseforge {
     }
 }
 
-dependencies {
-    minecraft(libs.minecraftforge)
+tasks {
+    withType<ProcessResources>().configureEach {
+        inputs.property("fency_version", "$version")
 
-    annotationProcessor(libs.mixin) {
-        artifact { classifier = "processor" }
+        filesMatching("META-INF/mods.toml") {
+            expand("fency_version" to "$version")
+        }
     }
+}
+
+dependencies {
+    implementation(libs.neoforge)
 }

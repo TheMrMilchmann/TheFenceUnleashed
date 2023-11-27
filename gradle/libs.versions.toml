@@ -1,16 +1,7 @@
 [versions]
 curseforge-publish = "0.6.0"
-forgegradle = "6.0.16"
-minecraft = "1.20.2"
-minecraftforge = "1.20.2-48.0.1"
-mixin = "0.8.5"
-#
-# TODO:
-#  The build should really not depend on a snapshot of some library or Gradle plugin but - for some reason - there
-#  was no MixinGradle release for an extremely long time. I might have to look into forking this to at least get a
-#  somewhat reproducible build.
-#
-mixingradle = "0.7-SNAPSHOT"
+neogradle = "7.0.67"
+neoforge = "20.2.86"
 
 
 [libraries]
@@ -18,20 +9,12 @@ mixingradle = "0.7-SNAPSHOT"
 # https://github.com/TheMrMilchmann/gradle-curseforge-publish
 gradle-curseforge-publish = { module = "io.github.themrmilchmann.gradle.publish.curseforge:gradle-curseforge-publish", version.ref = "curseforge-publish" }
 
-# net.minecraftforge:forge - MinecraftForge
-# https://github.com/MinecraftForge/MinecraftForge
-minecraftforge = { module = "net.minecraftforge:forge", version.ref = "minecraftforge" }
-
-# org.spongepowered:mixin - Mixin
-# https://github.com/SpongePowered/Mixin
-mixin = { module = "org.spongepowered:mixin", version.ref = "mixin" }
+# net.neoforged:neoforge - NeoForge
+# https://github.com/neoforged/NeoForge
+neoforge = { module = "net.neoforged:neoforge", version.ref = "neoforge" }
 
 
 [plugins]
-# net.minecraftforge.gradle - ForgeGradle
-# https://github.com/MinecraftForge/ForgeGradle
-forge = { id = "net.minecraftforge.gradle", version.ref = "forgegradle" }
-
-# org.spongepowered.mixin - MixinGradle
-# https://github.com/SpongePowered/MixinGradle
-mixin = { id = "org.spongepowered.mixin", version.ref = "mixingradle" }
+# net.neoforged.gradle.userdev - NeoGradle
+# https://github.com/neoforged/NeoGradle
+neogradle = { id = "net.neoforged.gradle.userdev", version.ref = "neogradle" }

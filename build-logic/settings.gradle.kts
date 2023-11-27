@@ -45,6 +45,8 @@
  */
 rootProject.name = "build-logic"
 
+includeBuild("../../gradle-curseforge-publish")
+
 dependencyResolutionManagement {
     versionCatalogs {
         create("libs") {

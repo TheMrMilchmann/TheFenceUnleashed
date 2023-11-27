@@ -49,26 +49,25 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.*;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.config.ModConfigEvent;
+import net.neoforged.neoforge.common.ModConfigSpec;
 
 import javax.annotation.Nullable;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class FencyConfig {
 
-    public static final ForgeConfigSpec SPEC;
+    public static final ModConfigSpec SPEC;
 
-    public static final ConfigValue<Behavior> defaultBehavior;
+    public static final ModConfigSpec.ConfigValue<Behavior> defaultBehavior;
 
-    private static final ConfigValue<List<? extends String>> blocklist;
-    private static final ConfigValue<List<? extends String>> allowlist;
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> blocklist;
+    private static final ModConfigSpec.ConfigValue<List<? extends String>> allowlist;
 
     static {
-        ForgeConfigSpec.Builder bConfigSpec = new ForgeConfigSpec.Builder();
+        ModConfigSpec.Builder bConfigSpec = new ModConfigSpec.Builder();
 
         defaultBehavior = bConfigSpec
             .comment(

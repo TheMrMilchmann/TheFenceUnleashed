@@ -52,17 +52,8 @@ pluginManagement {
 
     repositories {
         gradlePluginPortal()
-        maven(url = "https://maven.minecraftforge.net")
-        maven(url = "https://repo.spongepowered.org/repository/maven-public/")
+        maven(url = "https://maven.neoforged.net/releases")
         mavenCentral()
-    }
-
-    resolutionStrategy {
-        eachPlugin {
-            when (requested.id.id) {
-                "org.spongepowered.mixin" -> useModule("org.spongepowered:mixingradle:${requested.version}")
-            }
-        }
     }
 }
 
