@@ -79,30 +79,27 @@ tasks {
     }
 }
 
-publishing {
+curseforge {
     publications {
-        register<CurseForgePublication>("curseForge") {
-            projectID.set(521072) // https://www.curseforge.com/minecraft/mc-mods/the-fence-unleashed
+        named("minecraftForge") {
+            projectId = "521072" // https://www.curseforge.com/minecraft/mc-mods/the-fence-unleashed
 
-            artifact {
-                changelog = changelog()
+            artifacts.named("main") {
                 displayName = "The Fence Unleashed ${project.version}"
-                releaseType = ReleaseType.RELEASE
+
+                changelog {
+                    format = ChangelogFormat.MARKDOWN
+
+                    val modVersionSegment = version.toString().substringBefore('-')
+                    val mcVersionSegment = version.toString().substring(startIndex = modVersionSegment.length + 1).substringBefore('-')
+                    val mcVersionGroup = if (mcVersionSegment.count { it == '.' } == 1) mcVersionSegment else mcVersionSegment.substringBeforeLast('.')
+                    val loaderVersionSegment = version.toString().substring(startIndex = modVersionSegment.length + mcVersionSegment.length + 2)
+
+                    content = File(rootDir, "docs/changelog/$mcVersionGroup/${modVersionSegment}-${mcVersionSegment}-${loaderVersionSegment}.md").readText()
+                }
             }
         }
     }
-}
-
-fun changelog(): Changelog {
-    val modVersionSegment = version.toString().substringBefore('-')
-    val mcVersionSegment = version.toString().substring(startIndex = modVersionSegment.length + 1).substringBefore('-')
-    val mcVersionGroup = if (mcVersionSegment.count { it == '.' } == 1) mcVersionSegment else mcVersionSegment.substringBeforeLast('.')
-    val loaderVersionSegment = version.toString().substring(startIndex = modVersionSegment.length + mcVersionSegment.length + 2)
-
-    return Changelog(
-        content = File(rootDir, "docs/changelog/$mcVersionGroup/${modVersionSegment}-${mcVersionSegment}-${loaderVersionSegment}.md").readText(),
-        type = ChangelogType.MARKDOWN
-    )
 }
 
 dependencies {
