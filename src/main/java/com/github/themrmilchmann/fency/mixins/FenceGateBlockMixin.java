@@ -29,6 +29,7 @@ import javax.annotation.Nullable;
 import com.github.themrmilchmann.fency.Fency;
 import com.github.themrmilchmann.fency.advancements.critereon.FencyCriteriaTriggers;
 import com.github.themrmilchmann.fency.config.FencyConfig;
+import com.github.themrmilchmann.fency.util.FakePlayer;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.player.LocalPlayer;
@@ -52,7 +53,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.fml.DistExecutor;
 import org.apache.commons.lang3.NotImplementedException;
 import org.spongepowered.asm.mixin.Mixin;
@@ -142,7 +142,7 @@ public final class FenceGateBlockMixin {
 
         if (server != null) {
             if (playerRef == null || (player = playerRef.get()) == null) {
-                playerRef = new WeakReference<>(player = new FakePlayer(server.overworld(), PROFILE, ClientInformation.createDefault()) {});
+                playerRef = new WeakReference<>(player = new FakePlayer(server.overworld(), PROFILE, ClientInformation.createDefault()));
             }
         } else {
             player = DistExecutor.safeCallWhenOn(Dist.CLIENT, () -> ClientPlayerRetriever::getPlayer);
