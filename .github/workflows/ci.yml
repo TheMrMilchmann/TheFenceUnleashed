@@ -6,7 +6,7 @@ on:
 
 
 env:
-  JDK_VERSION: "18"
+  JDK_VERSION: "21"
 
 
 jobs:
