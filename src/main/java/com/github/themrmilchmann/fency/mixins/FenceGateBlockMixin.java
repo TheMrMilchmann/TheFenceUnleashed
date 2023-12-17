@@ -75,7 +75,6 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.fml.DistExecutor;
 import net.neoforged.neoforge.common.util.FakePlayer;
 import org.apache.commons.lang3.NotImplementedException;
 import org.spongepowered.asm.mixin.Mixin;
@@ -168,7 +167,7 @@ public final class FenceGateBlockMixin {
                 playerRef = new WeakReference<>(player = new FakePlayer(server.overworld(), PROFILE));
             }
         } else {
-            player = DistExecutor.safeCallWhenOn(Dist.CLIENT, () -> ClientPlayerRetriever::getPlayer);
+            player = ClientPlayerRetriever.getPlayer();
         }
 
         if (entity instanceof Mob mob && (mob.canBeLeashed(player) || mob.getLeashHolder() instanceof LeashFenceKnotEntity)) {
