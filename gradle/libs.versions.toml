@@ -1,5 +1,5 @@
 [versions]
-curseforge-publish = "0.6.0"
+curseforge-publish = "0.6.1"
 neogradle = "7.0.67"
 neoforge = "20.2.86"
 
