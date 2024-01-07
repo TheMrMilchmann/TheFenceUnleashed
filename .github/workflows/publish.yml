@@ -73,7 +73,7 @@ jobs:
         env:
           ORG_GRADLE_PROJECT_curseforgeApiToken: ${{ secrets.CURSEFORGE_API_TOKEN }}
         with:
-          arguments: check publishAllPublicationsToCurseForge --info -S --show-version
+          arguments: publishToCurseForge --info -S --show-version
           gradle-home-cache-cleanup: true
 
 
