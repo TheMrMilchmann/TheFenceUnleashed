@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021-2023 Leon Linhart,
+ * Copyright (c) 2021-2024 Leon Linhart,
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,31 +45,23 @@
  */
 package com.github.themrmilchmann.fency.advancements.critereon;
 
-import net.minecraft.advancements.CriteriaTriggers;
+import com.github.themrmilchmann.fency.Fency;
 import net.minecraft.advancements.CriterionTrigger;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 import javax.annotation.Nullable;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.util.function.Supplier;
 
 public final class FencyCriteriaTriggers {
 
+    public static final DeferredRegister<CriterionTrigger<?>> TRIGGER_TYPES = DeferredRegister.create(BuiltInRegistries.TRIGGER_TYPES, Fency.MOD_ID);
+
     @Nullable
-    public static EnterFenceGateTrigger ENTER_FENCE_GATE;
+    public static Supplier<EnterFenceGateTrigger> ENTER_FENCE_GATE;
 
     public static void init() {
-        try {
-            Method registerMethod = CriteriaTriggers.class.getDeclaredMethod("register", String.class, CriterionTrigger.class);
-            registerMethod.setAccessible(true);
-
-            try {
-                registerMethod.invoke(null, "fency:enter_fence_gate", ENTER_FENCE_GATE = new EnterFenceGateTrigger());
-            } finally {
-                registerMethod.setAccessible(false);
-            }
-        } catch (InvocationTargetException | IllegalAccessException | NoSuchMethodException e) {
-            throw new IllegalStateException("Failed to register custom advancement trigger.", e);
-        }
+        ENTER_FENCE_GATE = TRIGGER_TYPES.register("enter_fence_gate", EnterFenceGateTrigger::new);
     }
 
 }

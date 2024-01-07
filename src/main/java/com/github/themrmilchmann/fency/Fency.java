@@ -48,12 +48,12 @@ package com.github.themrmilchmann.fency;
 import com.github.themrmilchmann.fency.advancements.critereon.FencyCriteriaTriggers;
 import com.github.themrmilchmann.fency.config.FencyConfig;
 import net.minecraft.resources.ResourceLocation;
+import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.IExtensionPoint;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.InterModProcessEvent;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -72,7 +72,9 @@ public final class Fency {
     private static final Set<ResourceLocation> imcAllowlist = new HashSet<>();
     private static final Set<ResourceLocation> imcBlocklist = new HashSet<>();
 
-    public Fency() {
+    public Fency(IEventBus eventBus) {
+        FencyCriteriaTriggers.TRIGGER_TYPES.register(eventBus);
+
         ModLoadingContext ctx = ModLoadingContext.get();
         ctx.registerExtensionPoint(
             IExtensionPoint.DisplayTest.class,
@@ -84,7 +86,7 @@ public final class Fency {
         ctx.registerConfig(ModConfig.Type.COMMON, FencyConfig.SPEC, "the-fence-unleashed.toml");
 
         FencyCriteriaTriggers.init();
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::onIMCProcessEvent);
+        eventBus.addListener(this::onIMCProcessEvent);
     }
 
     public static boolean isAllowed(ResourceLocation rl) {

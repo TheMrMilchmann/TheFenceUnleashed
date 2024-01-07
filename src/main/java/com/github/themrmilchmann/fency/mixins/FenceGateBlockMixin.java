@@ -114,7 +114,7 @@ public final class FenceGateBlockMixin {
 
         if (entity instanceof ServerPlayer player) {
             assert (FencyCriteriaTriggers.ENTER_FENCE_GATE != null);
-            FencyCriteriaTriggers.ENTER_FENCE_GATE.trigger(player);
+            FencyCriteriaTriggers.ENTER_FENCE_GATE.get().trigger(player);
         }
 
         ResourceLocation entityTypeID = EntityType.getKey(entity.getType());
