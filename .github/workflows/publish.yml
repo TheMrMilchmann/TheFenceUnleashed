@@ -48,6 +48,7 @@ jobs:
 
   cf-release:
     name: Release to CurseForge
+    needs: build
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
     steps:
