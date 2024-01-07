@@ -1,7 +1,7 @@
 [versions]
 curseforge-publish = "0.6.1"
-neogradle = "7.0.67"
 neoforge = "20.2.86"
+neogradle = "7.0.80"
 
 
 [libraries]
