@@ -31,7 +31,7 @@ jobs:
           java-version: ${{ env.JDK_VERSION }}
 
       - name: Gradle Build
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3
         with:
           arguments: build --info -S --show-version
           gradle-home-cache-cleanup: true
@@ -69,7 +69,7 @@ jobs:
           java-version: ${{ env.JDK_VERSION }}
 
       - name: Gradle Publish
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3
         env:
           ORG_GRADLE_PROJECT_curseforgeApiToken: ${{ secrets.CURSEFORGE_API_TOKEN }}
         with:
