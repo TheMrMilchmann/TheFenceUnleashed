@@ -31,15 +31,13 @@ jobs:
           java-version: ${{ env.JDK_VERSION }}
 
       - name: Gradle Build
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: build --info -S --show-version
-          gradle-home-cache-cleanup: true
+        run: ./gradlew build --info -S --show-version
 
       - name: Tar files
         run: tar -cvf ${{ env.WORKSPACE_ARCHIVE }} .
 
-      - uses: actions/upload-artifact@v4
+      - name: Upload workspace artifact
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ env.WORKSPACE_ARTIFACT }}
           path: ${{ env.WORKSPACE_ARCHIVE }}
@@ -63,18 +61,21 @@ jobs:
           tar -xvf ${{ env.WORKSPACE_ARCHIVE }}
           rm ${{ env.WORKSPACE_ARCHIVE }}
 
-      - uses: actions/setup-java@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
         with:
           distribution: "temurin"
           java-version: ${{ env.JDK_VERSION }}
 
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-home-cache-cleanup: true
+
       - name: Gradle Publish
-        uses: gradle/gradle-build-action@v2
         env:
           ORG_GRADLE_PROJECT_curseforgeApiToken: ${{ secrets.CURSEFORGE_API_TOKEN }}
-        with:
-          arguments: publishToCurseForge --info -S --show-version
-          gradle-home-cache-cleanup: true
+        run: ./gradlew publishToCurseForge --info -S --show-version
 
 
   # So, what's happening here?
