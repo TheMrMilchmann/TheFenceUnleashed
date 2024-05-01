@@ -92,7 +92,7 @@ tasks {
     withType<ProcessResources>().configureEach {
         inputs.property("fency_version", "$version")
 
-        filesMatching("META-INF/mods.toml") {
+        filesMatching("META-INF/neoforge.mods.toml") {
             expand("fency_version" to "$version")
         }
     }

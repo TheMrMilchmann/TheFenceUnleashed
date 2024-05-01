@@ -49,8 +49,7 @@ import com.github.themrmilchmann.fency.advancements.critereon.FencyCriteriaTrigg
 import com.github.themrmilchmann.fency.config.FencyConfig;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.IExtensionPoint;
-import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.InterModProcessEvent;
@@ -59,8 +58,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.HashSet;
 import java.util.Set;
-
-import static net.neoforged.fml.IExtensionPoint.DisplayTest.IGNORESERVERONLY;
 
 @Mod(Fency.MOD_ID)
 public final class Fency {
@@ -72,18 +69,10 @@ public final class Fency {
     private static final Set<ResourceLocation> imcAllowlist = new HashSet<>();
     private static final Set<ResourceLocation> imcBlocklist = new HashSet<>();
 
-    public Fency(IEventBus eventBus) {
+    public Fency(ModContainer container, IEventBus eventBus) {
         FencyCriteriaTriggers.TRIGGER_TYPES.register(eventBus);
 
-        ModLoadingContext ctx = ModLoadingContext.get();
-        ctx.registerExtensionPoint(
-            IExtensionPoint.DisplayTest.class,
-            () -> new IExtensionPoint.DisplayTest(
-                () -> IGNORESERVERONLY,
-                (a, b) -> true
-            )
-        );
-        ctx.registerConfig(ModConfig.Type.COMMON, FencyConfig.SPEC, "the-fence-unleashed.toml");
+        container.registerConfig(ModConfig.Type.COMMON, FencyConfig.SPEC, "the-fence-unleashed.toml");
 
         FencyCriteriaTriggers.init();
         eventBus.addListener(this::onIMCProcessEvent);

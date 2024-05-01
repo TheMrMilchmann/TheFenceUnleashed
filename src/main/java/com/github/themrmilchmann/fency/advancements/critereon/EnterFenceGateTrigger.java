@@ -49,7 +49,6 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.ExtraCodecs;
 
 import java.util.Optional;
 
@@ -68,7 +67,7 @@ public final class EnterFenceGateTrigger extends SimpleCriterionTrigger<EnterFen
 
         public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(builder ->
             builder.group(
-                ExtraCodecs.strictOptionalField(EntityPredicate.ADVANCEMENT_CODEC, "player").forGetter(TriggerInstance::player)
+                EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player)
             ).apply(builder, TriggerInstance::new)
         );
 

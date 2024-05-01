@@ -8,14 +8,14 @@
         "announce_to_chat": true,
         "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
         "description": {
-            "translate": "advancement.fency.fency.desc"
+            "translate": "advancement.fency.fency.description"
         },
         "icon": {
-            "item": "minecraft:oak_fence_gate"
+            "id": "minecraft:oak_fence_gate"
         },
         "show_toast": true,
         "title": {
-            "translate": "advancement.fency.fency"
+            "translate": "advancement.fency.fency.title"
         }
     },
     "requirements": [
