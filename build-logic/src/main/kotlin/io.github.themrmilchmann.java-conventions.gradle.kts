@@ -56,10 +56,10 @@ java {
 
 tasks {
     withType<JavaCompile>().configureEach {
-        options.release.convention(17)
+        options.release.convention(21)
     }
 
     withType<JavaExec>().configureEach {
-        javaLauncher.convention(project.javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(17) })
+        javaLauncher.convention(project.javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(21) })
     }
 }
