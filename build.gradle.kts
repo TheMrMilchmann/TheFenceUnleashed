@@ -57,11 +57,8 @@ minecraft {
             systemProperty("forge.logging.console.level", "debug")
             systemProperty("forge.logging.markers", "REGISTRIES")
 
-            modSources.add(sourceSets.main)
+            modSources.add(sourceSets.main.get())
         }
-
-        register("client")
-        register("server")
     }
 }
 

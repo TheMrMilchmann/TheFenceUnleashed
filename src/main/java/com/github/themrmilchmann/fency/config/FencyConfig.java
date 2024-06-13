@@ -91,7 +91,7 @@ public final class FencyConfig {
             .defineList(
                 "blocklist",
                 Collections::emptyList,
-                it -> it instanceof String && (ResourceLocation.isValidResourceLocation((String) it))
+                it -> it instanceof String && (ResourceLocation.tryParse((String) it) != null)
             );
 
         allowlist = bConfigSpec
@@ -102,7 +102,7 @@ public final class FencyConfig {
                     "minecolonies:citizen",
                     "minecolonies:visitor"
                 ),
-                it -> it instanceof String && (ResourceLocation.isValidResourceLocation((String) it))
+                it -> it instanceof String && (ResourceLocation.tryParse((String) it) != null)
             );
 
         SPEC = bConfigSpec.build();
@@ -118,8 +118,8 @@ public final class FencyConfig {
         List<? extends String> blocklist = FencyConfig.blocklist.get();
         List<? extends String> allowlist = FencyConfig.allowlist.get();
 
-        _blocklist = blocklist.stream().map(ResourceLocation::new).collect(Collectors.toUnmodifiableSet());
-        _allowlist = allowlist.stream().map(ResourceLocation::new).collect(Collectors.toUnmodifiableSet());
+        _blocklist = blocklist.stream().map(ResourceLocation::parse).collect(Collectors.toUnmodifiableSet());
+        _allowlist = allowlist.stream().map(ResourceLocation::parse).collect(Collectors.toUnmodifiableSet());
 
         Set<? extends ResourceLocation> duplicates = _blocklist.stream()
             .filter(it -> _allowlist.contains(it))

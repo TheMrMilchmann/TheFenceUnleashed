@@ -54,12 +54,9 @@ import com.github.themrmilchmann.fency.Fency;
 import com.github.themrmilchmann.fency.advancements.critereon.FencyCriteriaTriggers;
 import com.github.themrmilchmann.fency.config.FencyConfig;
 import com.mojang.authlib.GameProfile;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -73,9 +70,6 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.common.util.FakePlayer;
 import org.apache.commons.lang3.NotImplementedException;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
@@ -158,34 +152,9 @@ public final class FenceGateBlockMixin {
             break;
         }
 
-        @SuppressWarnings("resource")
-        MinecraftServer server = entity.level().getServer();
-        Player player;
-
-        if (server != null) {
-            if (playerRef == null || (player = playerRef.get()) == null) {
-                playerRef = new WeakReference<>(player = new FakePlayer(server.overworld(), PROFILE));
-            }
-        } else {
-            player = ClientPlayerRetriever.getPlayer();
-        }
-
-        if (entity instanceof Mob mob && (mob.canBeLeashed(player) || mob.getLeashHolder() instanceof LeashFenceKnotEntity)) {
+        if (entity instanceof Mob mob && (mob.canBeLeashed() || mob.getLeashHolder() instanceof LeashFenceKnotEntity)) {
             ci.setReturnValue(state.getValue(FACING).getAxis() == Direction.Axis.Z ? Z_COLLISION_SHAPE() : X_COLLISION_SHAPE());
         }
-    }
-
-    // Required to properly defer the client-only logic to prevent loading of client classes on dedicated servers.
-    private static final class ClientPlayerRetriever {
-
-        @OnlyIn(Dist.CLIENT)
-        private static Player getPlayer() {
-            LocalPlayer player = Minecraft.getInstance().player;
-            assert (player != null);
-
-            return player;
-        }
-
     }
 
 }
