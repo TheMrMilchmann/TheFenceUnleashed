@@ -1,20 +1,4 @@
-[versions]
-curseforge-publish = "0.6.1"
-neoforge = "21.0.0-beta"
-neogradle = "7.0.142"
-
-
 [libraries]
-# io.github.themrmilchmann.gradle.publish.curseforge:gradle-curseforge-publish - CurseForge Gradle Publish Plugin
-# https://github.com/TheMrMilchmann/gradle-curseforge-publish
-gradle-curseforge-publish = { module = "io.github.themrmilchmann.gradle.publish.curseforge:gradle-curseforge-publish", version.ref = "curseforge-publish" }
-
 # net.neoforged:neoforge - NeoForge
 # https://github.com/neoforged/NeoForge
-neoforge = { module = "net.neoforged:neoforge", version.ref = "neoforge" }
-
-
-[plugins]
-# net.neoforged.gradle.userdev - NeoGradle
-# https://github.com/neoforged/NeoGradle
-neogradle = { id = "net.neoforged.gradle.userdev", version.ref = "neogradle" }
+neoforge = { module = "net.neoforged:neoforge", version = "21.0.0-beta" }

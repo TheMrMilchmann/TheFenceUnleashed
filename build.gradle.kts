@@ -46,7 +46,7 @@
 import io.github.themrmilchmann.gradle.publish.curseforge.*
 
 plugins {
-    alias(libs.plugins.neogradle)
+    alias(buildDeps.plugins.neogradle)
     id("io.github.themrmilchmann.java-conventions")
     id("io.github.themrmilchmann.curseforge-publish-conventions")
 }

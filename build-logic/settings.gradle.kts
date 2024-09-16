@@ -47,7 +47,10 @@ rootProject.name = "build-logic"
 
 dependencyResolutionManagement {
     versionCatalogs {
-        create("libs") {
+        register("buildDeps") {
+            from(files("../gradle/build.versions.toml"))
+        }
+        register("libs") {
             from(files("../gradle/libs.versions.toml"))
         }
     }

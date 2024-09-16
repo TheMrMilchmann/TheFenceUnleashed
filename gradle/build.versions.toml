@@ -1,0 +1,10 @@
+[libraries]
+# io.github.themrmilchmann.gradle.publish.curseforge:gradle-curseforge-publish - CurseForge Gradle Publish Plugin
+# https://github.com/TheMrMilchmann/gradle-curseforge-publish
+gradle-curseforge-publish = { module = "io.github.themrmilchmann.gradle.publish.curseforge:gradle-curseforge-publish", version = "0.6.1" }
+
+
+[plugins]
+# net.neoforged.gradle.userdev - NeoGradle
+# https://github.com/neoforged/NeoGradle
+neogradle = { id = "net.neoforged.gradle.userdev", version = "7.0.142" }
