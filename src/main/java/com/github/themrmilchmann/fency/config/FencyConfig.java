@@ -88,20 +88,22 @@ public final class FencyConfig {
 
         blocklist = bConfigSpec
             .comment("Entities that are always blocked from passing through fence gates.")
-            .defineList(
+            .defineListAllowEmpty(
                 "blocklist",
                 Collections::emptyList,
+                () -> "",
                 it -> it instanceof String && (ResourceLocation.tryParse((String) it) != null)
             );
 
         allowlist = bConfigSpec
             .comment("Entities that are always allowed to pass through fence gates.")
-            .defineList(
+            .defineListAllowEmpty(
                 "allowlist",
                 () -> List.of(
                     "minecolonies:citizen",
                     "minecolonies:visitor"
                 ),
+                () -> "",
                 it -> it instanceof String && (ResourceLocation.tryParse((String) it) != null)
             );
 
