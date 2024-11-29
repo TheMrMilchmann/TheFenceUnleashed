@@ -70,3 +70,5 @@ dependencyResolutionManagement {
         }
     }
 }
+
+enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
