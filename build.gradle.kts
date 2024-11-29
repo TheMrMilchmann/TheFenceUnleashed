@@ -96,10 +96,12 @@ curseforge {
 
 tasks {
     withType<ProcessResources>().configureEach {
-        inputs.property("fency_version", "$version")
+        val version = "${project.version}"
+
+        inputs.property("fency_version", version)
 
         filesMatching("META-INF/neoforge.mods.toml") {
-            expand("fency_version" to "$version")
+            expand("fency_version" to version)
         }
     }
 }
