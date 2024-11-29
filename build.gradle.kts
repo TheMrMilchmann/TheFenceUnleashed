@@ -46,18 +46,27 @@
 import io.github.themrmilchmann.gradle.publish.curseforge.*
 
 plugins {
-    alias(buildDeps.plugins.neogradle)
+    alias(buildDeps.plugins.modDevGradle)
     id("io.github.themrmilchmann.java-conventions")
     id("io.github.themrmilchmann.curseforge-publish-conventions")
 }
 
-minecraft {
-    runs {
-        configureEach {
-            systemProperty("forge.logging.console.level", "debug")
-            systemProperty("forge.logging.markers", "REGISTRIES")
+neoForge {
+    version = libs.versions.neoforge.get()
 
-            modSources.add(sourceSets.main.get())
+    mods {
+        register("fency") {
+            sourceSet(sourceSets.main.get())
+        }
+    }
+
+    runs {
+        register("client") {
+            client()
+        }
+
+        register("server") {
+            server()
         }
     }
 }
@@ -93,8 +102,4 @@ tasks {
             expand("fency_version" to "$version")
         }
     }
-}
-
-dependencies {
-    implementation(libs.neoforge)
 }

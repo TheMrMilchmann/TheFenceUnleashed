@@ -1,4 +1,8 @@
+[versions]
+neoforge = "21.0.0-beta"
+
+
 [libraries]
 # net.neoforged:neoforge - NeoForge
 # https://github.com/neoforged/NeoForge
-neoforge = { module = "net.neoforged:neoforge", version = "21.0.0-beta" }
+neoforge = { module = "net.neoforged:neoforge", version.ref = "neoforge" }

@@ -5,6 +5,6 @@ gradle-curseforge-publish = { module = "io.github.themrmilchmann.gradle.publish.
 
 
 [plugins]
-# net.neoforged.gradle.userdev - NeoGradle
-# https://github.com/neoforged/NeoGradle
-neogradle = { id = "net.neoforged.gradle.userdev", version = "7.0.142" }
+# net.neoforged.moddev - ModDevGradle
+# https://github.com/neoforged/ModDevGradle
+modDevGradle = { id = "net.neoforged.moddev", version = "1.0.21" }
