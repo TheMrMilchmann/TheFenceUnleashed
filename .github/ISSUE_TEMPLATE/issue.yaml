@@ -18,8 +18,8 @@ body:
 
   - type: input
     attributes:
-      label: Forge version
-      description: The version of MinecraftForge
+      label: NeoForge version
+      description: The version of NeoForge
     validations:
       required: true
 
