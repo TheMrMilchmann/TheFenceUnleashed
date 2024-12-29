@@ -45,10 +45,8 @@
  */
 package com.github.themrmilchmann.fency.mixins;
 
-import java.lang.ref.WeakReference;
 import java.util.*;
 
-import javax.annotation.Nullable;
 
 import com.github.themrmilchmann.fency.Fency;
 import com.github.themrmilchmann.fency.advancements.critereon.FencyCriteriaTriggers;
@@ -62,7 +60,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.decoration.LeashFenceKnotEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.FenceGateBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -85,9 +82,6 @@ public final class FenceGateBlockMixin {
 
     private static final UUID PROFILE_UUID = UUID.randomUUID();
     private static final GameProfile PROFILE = new GameProfile(PROFILE_UUID, "[Fency]");
-
-    @Nullable
-    private static WeakReference<Player> playerRef;
 
     @Accessor(value = "X_COLLISION_SHAPE")
     private static VoxelShape X_COLLISION_SHAPE() {
