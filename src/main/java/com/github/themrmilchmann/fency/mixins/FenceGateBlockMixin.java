@@ -83,14 +83,9 @@ public final class FenceGateBlockMixin {
     private static final UUID PROFILE_UUID = UUID.randomUUID();
     private static final GameProfile PROFILE = new GameProfile(PROFILE_UUID, "[Fency]");
 
-    @Accessor(value = "X_COLLISION_SHAPE")
-    private static VoxelShape X_COLLISION_SHAPE() {
-        throw new NotImplementedException("FenceGateBlock#X_COLLISION_SHAPE mixin failed to apply");
-    }
-
-    @Accessor(value = "Z_COLLISION_SHAPE")
-    private static VoxelShape Z_COLLISION_SHAPE() {
-        throw new NotImplementedException("FenceGateBlock#Z_COLLISION_SHAPE mixin failed to apply");
+    @Accessor(value = "SHAPE_COLLISION")
+    private static Map<Direction.Axis, VoxelShape> SHAPE_COLLISION() {
+        throw new NotImplementedException("FenceGateBlock#SHAPE_COLLISION mixin failed to apply");
     }
 
     @Inject(at = @At(value = "HEAD"), method = "getCollisionShape", cancellable = true)
@@ -110,8 +105,10 @@ public final class FenceGateBlockMixin {
         boolean isBlocked = Fency.isBlocked(entityTypeID);
         boolean isAllowed = Fency.isAllowed(entityTypeID);
 
+        Direction.Axis axis = state.getValue(FACING).getAxis();
+
         if (isBlocked || (!isAllowed && FencyConfig.defaultBehavior.get() == FencyConfig.Behavior.BLOCK)) {
-            ci.setReturnValue(state.getValue(FACING).getAxis() == Direction.Axis.Z ? Z_COLLISION_SHAPE() : X_COLLISION_SHAPE());
+            ci.setReturnValue(SHAPE_COLLISION().get(axis));
             return;
         } else if (isAllowed || FencyConfig.defaultBehavior.get() == FencyConfig.Behavior.ALLOW) {
             ci.setReturnValue(Shapes.empty());
@@ -123,7 +120,7 @@ public final class FenceGateBlockMixin {
 
         while (true) {
             if (visitedEntities.contains(entity)) {
-                ci.setReturnValue(state.getValue(FACING).getAxis() == Direction.Axis.Z ? Z_COLLISION_SHAPE() : X_COLLISION_SHAPE());
+                ci.setReturnValue(SHAPE_COLLISION().get(axis));
                 return; // We track visited entities and return early to not even risk getting stuck in infinite loops.
             }
 
@@ -147,7 +144,7 @@ public final class FenceGateBlockMixin {
         }
 
         if (entity instanceof Mob mob && (mob.canBeLeashed() || mob.getLeashHolder() instanceof LeashFenceKnotEntity)) {
-            ci.setReturnValue(state.getValue(FACING).getAxis() == Direction.Axis.Z ? Z_COLLISION_SHAPE() : X_COLLISION_SHAPE());
+            ci.setReturnValue(SHAPE_COLLISION().get(axis));
         }
     }
 
