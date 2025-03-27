@@ -139,7 +139,7 @@ Additionally `tasks` may be used to print a list of all available tasks.
 ## License
 
 ```
-Copyright (c) 2021-2024 Leon Linhart,
+Copyright (c) 2021-2025 Leon Linhart,
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
