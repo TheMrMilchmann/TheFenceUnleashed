@@ -1,10 +1,10 @@
-### 1.0.2-1.21.5-0.0
+### 1.0.2-1.21.6-0.0
 
-_Released 2025 Mar 27_
+_Released 2025 Jun 17_
 
 #### Requirements
-- **NeoForge:** 21.5.4-beta
+- **NeoForge:** 21.6.0-beta
 
 #### Overview
 
-- Updated to Minecraft 1.21.5
+- Updated to Minecraft 1.21.6
