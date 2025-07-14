@@ -56,7 +56,7 @@ import net.neoforged.neoforge.common.ModConfigSpec;
 
 import javax.annotation.Nullable;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber
 public final class FencyConfig {
 
     public static final ModConfigSpec SPEC;
