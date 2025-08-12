@@ -1,3 +1,6 @@
+import org.gradle.kotlin.dsl.mavenCentral
+import org.gradle.kotlin.dsl.repositories
+
 /*
  * Copyright (c) 2021-2025 Leon Linhart,
  * All rights reserved.
@@ -46,6 +49,13 @@
 rootProject.name = "build-logic"
 
 dependencyResolutionManagement {
+    repositoriesMode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
+
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+
     versionCatalogs {
         register("buildDeps") {
             from(files("../gradle/build.versions.toml"))

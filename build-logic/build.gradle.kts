@@ -47,11 +47,6 @@ plugins {
     `kotlin-dsl`
 }
 
-repositories {
-    mavenCentral()
-    gradlePluginPortal()
-}
-
 dependencies {
     implementation(buildDeps.gradle.curseforge.publish)
 }
