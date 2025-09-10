@@ -49,16 +49,16 @@ plugins {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(21))
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 
 tasks {
     withType<JavaCompile>().configureEach {
-        options.release.convention(21)
+        options.release = 21
     }
 
     withType<JavaExec>().configureEach {
-        javaLauncher.convention(project.javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(21) })
+        javaLauncher = project.javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(21) }
     }
 }
