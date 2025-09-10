@@ -44,7 +44,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 plugins {
-    id("io.github.themrmilchmann.base-conventions")
     id("io.github.themrmilchmann.curseforge-publish")
 }
 

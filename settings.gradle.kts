@@ -64,6 +64,10 @@ plugins {
 rootProject.name = "TheFenceUnleashed"
 
 dependencyResolutionManagement {
+    repositories {
+        mavenCentral()
+    }
+
     versionCatalogs {
         register("buildDeps") {
             from(files("./gradle/build.versions.toml"))

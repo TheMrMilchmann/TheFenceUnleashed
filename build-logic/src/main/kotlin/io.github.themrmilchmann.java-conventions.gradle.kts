@@ -45,7 +45,6 @@
  */
 plugins {
     java
-    id("io.github.themrmilchmann.base-conventions")
 }
 
 java {
