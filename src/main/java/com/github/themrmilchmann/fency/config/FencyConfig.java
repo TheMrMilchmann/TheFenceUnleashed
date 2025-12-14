@@ -48,7 +48,7 @@ package com.github.themrmilchmann.fency.config;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.config.ModConfigEvent;
@@ -92,7 +92,7 @@ public final class FencyConfig {
                 "blocklist",
                 Collections::emptyList,
                 () -> "",
-                it -> it instanceof String && (ResourceLocation.tryParse((String) it) != null)
+                it -> it instanceof String && (Identifier.tryParse((String) it) != null)
             );
 
         allowlist = bConfigSpec
@@ -104,32 +104,32 @@ public final class FencyConfig {
                     "minecolonies:visitor"
                 ),
                 () -> "",
-                it -> it instanceof String && (ResourceLocation.tryParse((String) it) != null)
+                it -> it instanceof String && (Identifier.tryParse((String) it) != null)
             );
 
         SPEC = bConfigSpec.build();
     }
 
     @Nullable
-    private static Set<? extends ResourceLocation> _blocklist, _allowlist;
+    private static Set<? extends Identifier> _blocklist, _allowlist;
 
-    public static Set<? extends ResourceLocation> getBlocklist() { return Objects.requireNonNull(_blocklist, "Requested blocklist before config was loaded"); }
-    public static Set<? extends ResourceLocation> getAllowlist() { return Objects.requireNonNull(_allowlist, "Requested allowlist before config was loaded"); }
+    public static Set<? extends Identifier> getBlocklist() { return Objects.requireNonNull(_blocklist, "Requested blocklist before config was loaded"); }
+    public static Set<? extends Identifier> getAllowlist() { return Objects.requireNonNull(_allowlist, "Requested allowlist before config was loaded"); }
 
     private static void processConfig() {
         List<? extends String> blocklist = FencyConfig.blocklist.get();
         List<? extends String> allowlist = FencyConfig.allowlist.get();
 
-        _blocklist = blocklist.stream().map(ResourceLocation::parse).collect(Collectors.toUnmodifiableSet());
-        _allowlist = allowlist.stream().map(ResourceLocation::parse).collect(Collectors.toUnmodifiableSet());
+        _blocklist = blocklist.stream().map(Identifier::parse).collect(Collectors.toUnmodifiableSet());
+        _allowlist = allowlist.stream().map(Identifier::parse).collect(Collectors.toUnmodifiableSet());
 
-        Set<? extends ResourceLocation> duplicates = _blocklist.stream()
+        Set<? extends Identifier> duplicates = _blocklist.stream()
             .filter(it -> _allowlist.contains(it))
             .collect(Collectors.toSet());
 
         if (!duplicates.isEmpty()) {
             StringBuilder sb = new StringBuilder("[The Fence Unleashed] Duplicate entries found in block- and allowlist:");
-            for (ResourceLocation duplicate : duplicates) sb.append("\n\t - ").append(duplicate);
+            for (Identifier duplicate : duplicates) sb.append("\n\t - ").append(duplicate);
             sb.append("\nPlease resolve these configuration issues before restarting.");
 
             throw new IllegalArgumentException(sb.toString());

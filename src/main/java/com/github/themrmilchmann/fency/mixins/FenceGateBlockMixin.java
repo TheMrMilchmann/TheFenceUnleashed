@@ -54,7 +54,7 @@ import com.github.themrmilchmann.fency.config.FencyConfig;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -100,7 +100,7 @@ public final class FenceGateBlockMixin {
             FencyCriteriaTriggers.ENTER_FENCE_GATE.get().trigger(player);
         }
 
-        ResourceLocation entityTypeID = EntityType.getKey(entity.getType());
+        Identifier entityTypeID = EntityType.getKey(entity.getType());
 
         boolean isBlocked = Fency.isBlocked(entityTypeID);
         boolean isAllowed = Fency.isAllowed(entityTypeID);

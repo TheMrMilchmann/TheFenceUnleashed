@@ -47,7 +47,7 @@ package com.github.themrmilchmann.fency;
 
 import com.github.themrmilchmann.fency.advancements.critereon.FencyCriteriaTriggers;
 import com.github.themrmilchmann.fency.config.FencyConfig;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -66,8 +66,8 @@ public final class Fency {
 
     private static final Logger LOGGER = LogManager.getLogger(MOD_ID);
 
-    private static final Set<ResourceLocation> imcAllowlist = new HashSet<>();
-    private static final Set<ResourceLocation> imcBlocklist = new HashSet<>();
+    private static final Set<Identifier> imcAllowlist = new HashSet<>();
+    private static final Set<Identifier> imcBlocklist = new HashSet<>();
 
     public Fency(ModContainer container, IEventBus eventBus) {
         FencyCriteriaTriggers.TRIGGER_TYPES.register(eventBus);
@@ -78,18 +78,18 @@ public final class Fency {
         eventBus.addListener(this::onIMCProcessEvent);
     }
 
-    public static boolean isAllowed(ResourceLocation rl) {
-        Set<? extends ResourceLocation> cfgAllowlist = FencyConfig.getAllowlist();
-        Set<? extends ResourceLocation> cfgBlocklist = FencyConfig.getBlocklist();
+    public static boolean isAllowed(Identifier id) {
+        Set<? extends Identifier> cfgAllowlist = FencyConfig.getAllowlist();
+        Set<? extends Identifier> cfgBlocklist = FencyConfig.getBlocklist();
 
-        return cfgAllowlist.contains(rl) || (!cfgBlocklist.contains(rl) && imcAllowlist.contains(rl));
+        return cfgAllowlist.contains(id) || (!cfgBlocklist.contains(id) && imcAllowlist.contains(id));
     }
 
-    public static boolean isBlocked(ResourceLocation rl) {
-        Set<? extends ResourceLocation> cfgAllowlist = FencyConfig.getAllowlist();
-        Set<? extends ResourceLocation> cfgBlocklist = FencyConfig.getBlocklist();
+    public static boolean isBlocked(Identifier id) {
+        Set<? extends Identifier> cfgAllowlist = FencyConfig.getAllowlist();
+        Set<? extends Identifier> cfgBlocklist = FencyConfig.getBlocklist();
 
-        return cfgBlocklist.contains(rl) || (!cfgAllowlist.contains(rl) && imcBlocklist.contains(rl));
+        return cfgBlocklist.contains(id) || (!cfgAllowlist.contains(id) && imcBlocklist.contains(id));
     }
 
     private void onIMCProcessEvent(InterModProcessEvent event) {
@@ -98,14 +98,14 @@ public final class Fency {
 
             switch (method) {
                 case "addToAllowlist" -> {
-                    ResourceLocation rl = (ResourceLocation) message.messageSupplier().get();
+                    Identifier rl = (Identifier) message.messageSupplier().get();
                     if (imcBlocklist.contains(rl))
                         throw new IllegalArgumentException("[The Fence Unleashed] Entry cannot be added to allowlist as it's already explicitly blocked: " + rl);
 
                     imcAllowlist.add(rl);
                 }
                 case "addToBlocklist" -> {
-                    ResourceLocation rl = (ResourceLocation) message.messageSupplier().get();
+                    Identifier rl = (Identifier) message.messageSupplier().get();
                     if (imcAllowlist.contains(rl))
                         throw new IllegalArgumentException("[The Fence Unleashed] Entry cannot be added to blocklist as it's already explicitly allowed: " + rl);
 
