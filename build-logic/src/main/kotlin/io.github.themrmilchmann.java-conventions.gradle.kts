@@ -55,10 +55,10 @@ java {
 
 tasks {
     withType<JavaCompile>().configureEach {
-        options.release = 21
+        options.release = 25
     }
 
     withType<JavaExec>().configureEach {
-        javaLauncher = project.javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(21) }
+        javaLauncher = project.javaToolchains.launcherFor { languageVersion = JavaLanguageVersion.of(25) }
     }
 }
