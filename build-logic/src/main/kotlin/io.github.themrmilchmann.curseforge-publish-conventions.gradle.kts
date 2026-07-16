@@ -48,6 +48,6 @@ plugins {
 }
 
 curseforge {
-    val curseforgeApiToken: String? by project
+    val curseforgeApiToken = providers.gradleProperty("curseforgeApiToken")
     apiToken.convention(curseforgeApiToken)
 }
