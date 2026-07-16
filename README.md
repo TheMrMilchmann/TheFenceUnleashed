@@ -47,7 +47,8 @@ typically the oldest supported version string should be chosen.
 
 | Minecraft Version                                                     | State            |
 |-----------------------------------------------------------------------|------------------|
-| 26.1                                                                  | Mainline         |
+| 26.2                                                                  | Mainline         |
+| [26.1](https://github.com/TheMrMilchmann/TheFenceUnleashed/tree/26.1) | Maintenance Mode |
 | [1.21](https://github.com/TheMrMilchmann/TheFenceUnleashed/tree/1.21) | Maintenance Mode |
 | [1.20](https://github.com/TheMrMilchmann/TheFenceUnleashed/tree/1.20) | Maintenance Mode |
 | [1.19](https://github.com/TheMrMilchmann/TheFenceUnleashed/tree/1.19) | Maintenance Mode |

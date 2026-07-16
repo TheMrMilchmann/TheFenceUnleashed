@@ -46,7 +46,7 @@
 package com.github.themrmilchmann.fency.advancements.critereon;
 
 import com.github.themrmilchmann.fency.Fency;
-import net.minecraft.advancements.CriterionTrigger;
+import net.minecraft.advancements.triggers.CriterionTrigger;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
