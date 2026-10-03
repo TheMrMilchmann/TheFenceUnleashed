@@ -72,7 +72,7 @@ public final class Fency {
     public Fency(ModContainer container, IEventBus eventBus) {
         FencyCriteriaTriggers.TRIGGER_TYPES.register(eventBus);
 
-        container.registerConfig(ModConfig.Type.COMMON, FencyConfig.SPEC, "the-fence-unleashed.toml");
+        container.registerConfig(ModConfig.Type.SYNCED, FencyConfig.SPEC, "the-fence-unleashed.toml");
 
         FencyCriteriaTriggers.init();
         eventBus.addListener(this::onIMCProcessEvent);

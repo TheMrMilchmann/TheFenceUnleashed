@@ -47,10 +47,10 @@ package com.github.themrmilchmann.fency.advancements.critereon;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.advancements.predicates.ContextAwarePredicate;
-import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.advancements.triggers.SimpleCriterionTrigger;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 import java.util.Optional;
 
@@ -62,14 +62,14 @@ public final class EnterFenceGateTrigger extends SimpleCriterionTrigger<EnterFen
     }
 
     public void trigger(ServerPlayer player) {
-        this.trigger(player, triggerInstance -> true);
+        this.trigger(player, _ -> true);
     }
 
-    public record TriggerInstance(Optional<ContextAwarePredicate> player) implements SimpleCriterionTrigger.SimpleInstance {
+    public record TriggerInstance(Optional<Holder<LootItemCondition>> player) implements SimpleCriterionTrigger.SimpleInstance {
 
         public static final Codec<TriggerInstance> CODEC = RecordCodecBuilder.create(builder ->
             builder.group(
-                EntityPredicate.ADVANCEMENT_CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player)
+                LootItemCondition.CODEC.optionalFieldOf("player").forGetter(TriggerInstance::player)
             ).apply(builder, TriggerInstance::new)
         );
 

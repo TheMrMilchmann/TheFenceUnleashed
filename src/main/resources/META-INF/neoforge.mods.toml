@@ -2,7 +2,7 @@ modLoader = "javafml"
 loaderVersion = "[1,)"
 license = "Fency"
 issueTrackerURL = "https://github.com/TheMrMilchmann/TheFenceUnleashed/issues"
-logoFile = "logo.png"
+bannerFile = "logo.png"
 
 [[mixins]]
 config = "fency.mixins.json"

@@ -5,18 +5,16 @@
             "bonus_rolls": 0,
             "entries": [
                 {
+                    "type": "minecraft:item",
                     "name": "minecraft:lead",
-                    "functions": [
-                        {
-                            "add": false,
-                            "count": {
-                                "type": "minecraft:constant",
-                                "value": 2
-                            },
-                            "function": "minecraft:set_count"
-                        }
-                    ],
-                    "type": "minecraft:item"
+                    "modifier": {
+                        "type": "minecraft:set_count",
+                        "count": {
+                            "type": "minecraft:constant",
+                            "value": 2
+                        },
+                        "add": false
+                    }
                 }
             ],
             "rolls": 1
